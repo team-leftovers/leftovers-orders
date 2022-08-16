@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 //import com.leftovers.order.address.service.addressService;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -43,12 +44,12 @@ public class addressController {
     }
 
 
-    /*
-    @GetMapping(path = "")
+
+    @GetMapping(path = "/all")
     public List<address> getAll() {
         return addressService.getAll();
     }
-    */
+
 
     /*
     @RequestMapping(path = "/add/{name}" , method = RequestMethod.POST)
@@ -64,6 +65,27 @@ public class addressController {
     @RequestMapping(path = "/by-id/{id}" , method = RequestMethod.GET)
     public Optional<address> getAddressById(@PathVariable Integer id) {
         return addressService.getAddressById(id);
+    }
+    @RequestMapping(path = "/showid/{id}" , method = RequestMethod.GET)
+    public String showId(@PathVariable Integer id) {
+        Optional<address> newAddress = addressService.getAddressById(id);
+        if(newAddress.isEmpty())
+        {
+            return "null";
+        }
+        return newAddress.get().toString();
+    }
+    @RequestMapping(path = "/read/{id}" , method = RequestMethod.GET)
+    public String readFromId(@PathVariable Integer id)
+    {
+        try {
+            return addressService.readFromId(id);
+
+        }
+        catch(Exception e)
+        {
+            return "At controller";
+        }
     }
     /*
     public String getAddressById(@PathVariable Integer id) {

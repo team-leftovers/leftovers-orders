@@ -6,6 +6,7 @@ import com.leftovers.order.address.dao.addressDAO;
 import com.leftovers.order.address.model.address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +33,17 @@ public class addressService {
         }
         catch (Exception e) {
             throw e;
+        }
+    }
+
+    public String readFromId(@PathVariable Integer id) {
+        try {
+            return servDAO.readFromId(id);
+        }
+        catch(Exception e)
+        {
+            return "At Service";
+
         }
     }
 /*

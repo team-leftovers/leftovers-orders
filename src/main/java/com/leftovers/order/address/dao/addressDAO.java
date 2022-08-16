@@ -5,6 +5,7 @@ import com.leftovers.order.address.repository.addressRepository;
 import com.leftovers.order.address.model.address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +34,22 @@ public class addressDAO {
         }
         else {
             return null;
+        }
+    }
+
+    public String readFromId(@PathVariable Integer id)
+    {
+        try {
+            Optional<address> result = fdr.findById(id);
+            if (result.isEmpty()) {
+                return "empty";
+            }
+            return "full";
+        }
+        catch(Exception e)
+        {
+            //return "AtDAO";
+            return e.getMessage();
         }
     }
 

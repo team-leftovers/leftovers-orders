@@ -1,8 +1,10 @@
 package com.leftovers.order.restaurant.model;
 import com.leftovers.order.address.model.address;
+import com.leftovers.order.product.model.product;
 //import com.leftovers.order.order.model.order;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="restaurant")
@@ -14,14 +16,14 @@ public class restaurant {
     @Column(name = "name")
     public String name;
 
-    @Column(name = "address_id")
-    public int addressId;
+    //@Column(name = "address_id")
+    //public int addressId;
 
-    /*
+
     @OneToOne(fetch = FetchType.LAZY)//cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")//, referencedColumnName = "id")
     public address addressId;
-*/
+
 
     @Column(name = "phone_number")
     public String phoneNumber;
@@ -41,6 +43,19 @@ public class restaurant {
     //@OneToOne(mappedBy = "restaurantId")
     //public order Order;
 
+    @OneToMany(mappedBy = "restaurantId")
+    public List<product> menu;
+
+    /*
+    class Geeks {
+    Geeks() { super(); }
+    public static void main(String[] args)
+    {
+        Geeks geek = new Geeks();
+    }
+}
+     */
+
 
     public int getId() {
         return id;
@@ -58,9 +73,9 @@ public class restaurant {
         this.name = name;
     }
 
-    public int getAddressId(){return addressId;}
+    //public int getAddressId(){return addressId;}
 
-    public void setAddressId(int addressId) {this.addressId = addressId;}
+    //public void setAddressId(int addressId) {this.addressId = addressId;}
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -102,13 +117,29 @@ public class restaurant {
         this.rating = rating;
     }
 
-/*
-    public address getAddressId() {
-        return addressId;
+
+    public address getAddressId() {return addressId;}
+
+    public void setAddressId(address addressId) {this.addressId = addressId;}
+
+    public List<product> getMenu() {
+        return menu;
     }
 
-    public void setAddressId(address addressId) {
-        this.addressId = addressId;
+    public void setMenu(List<product> menu) {
+        this.menu = menu;
     }
-    */
+
+    public void addProduct(product product)
+    {
+        this.menu.add(product);
+    }
+
+    @Override
+    public String toString()
+    {
+        //{"id":3,"name":"This Garbage Heap","addressId":3,"phoneNumber":"4444444444","website":"garbage@here.com","openTime":"9:00pm","closingTime":"8:00am","rating":2.0}
+        return"DIFFERENCE!{\"id\":"+ id +",\"name\":\"" + name + "\",\"addressId\":" + addressId + ",\"phoneNumber\":\"" + phoneNumber + "\",\"website\":\"" + website + "\",\"openTime\":\"" + openTime + "\",\"closingTime\":\"" + closingTime + "\",\"rating\":" + rating + "}";
+    }
+
 }

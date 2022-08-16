@@ -38,22 +38,24 @@ public class restaurantController {
        //jpqlQuery.setParameter("id", id);
        // return (UserEntity) jpqlQuery.getSingleResult();
 
-        Optional<address> newOpt = addressService.getAddressById(6);
-        if(newOpt.isEmpty())
+        Optional<address> addressOpt = addressService.getAddressById(6);
+        if(addressOpt.isEmpty())
         {
             return "Failed to obtain address";
         }
 
         restaurant newRestaurant = new restaurant();
         newRestaurant.setName("Key Depot");
-        //newRestaurant.setAddressId(newOpt.get());
-        newRestaurant.setAddressId(1);
+        newRestaurant.setAddressId(addressOpt.get());
+        //newRestaurant.setAddressId(1);
         newRestaurant.setPhoneNumber("555-777-PLZ!");
         newRestaurant.setWebsite("key@foreign.com");
         newRestaurant.setOpenTime("12:00am");
         newRestaurant.setClosingTime("12:00pm");
         newRestaurant.setRating(11);
         restaurantService.addRestaurant(newRestaurant);
+
+
         return "Complete?";
     }
 
@@ -75,10 +77,21 @@ public class restaurantController {
         }
         return "An Error Occured";
     }*/
-
+/*
     @RequestMapping(path = "/by-id/{id}" , method = RequestMethod.GET)
     public Optional<restaurant> getRestaurantById(@PathVariable Integer id) {
         return restaurantService.getRestaurantById(id);
+    }
+    */
+
+    @RequestMapping(path = "/by-id/{id}" , method = RequestMethod.GET)
+    public String getRestaurantById(@PathVariable Integer id) {
+        Optional<restaurant> newRestaurant = restaurantService.getRestaurantById(id);
+        if (newRestaurant.isEmpty())
+        {
+            return "null";
+        }
+        return newRestaurant.get().toString();
     }
 /*
     @RequestMapping(path = "/{name}" , method = RequestMethod.GET)

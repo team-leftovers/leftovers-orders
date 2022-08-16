@@ -33,8 +33,23 @@ public class address {
     public String unitNumber;
 
 
-    //@OneToOne(mappedBy = "addressId")
-    //public restaurant Restaurant;
+    @OneToOne(mappedBy = "addressId")
+    public restaurant Restaurant;
+
+
+    public String displayId()
+    {
+        //return "\"id\":" + Integer.toString(id);
+        return "\"id\":" + id;
+    }
+
+    @Override
+    public String toString()
+    {
+        //{"id":3,"latitude":5.5,"longitude":7.14,"zipCode":97701,"country":"Fakeland","streetAddress":"FakeStreet","houseNumber":"hs15","unitNumber":"Un55"}
+        return "{\"id\":" + id + ",\"latitude\":" + latitude + ",\"longitude\":" + longitude + ",\"zipCode\":" + zipCode + ",\"country\":\"" + country + "\",\"streetAddress\":\"" + streetAddress + "\",\"houseNumber\":\"" + houseNumber + "\",\"unitNumber\":\"" + unitNumber + "\"}";
+    }
+
 
     public int getId() {
         return id;
@@ -102,7 +117,7 @@ public class address {
     public void setUnitNumber(String unitNumber) {
         this.unitNumber = unitNumber;
     }
-/*
+
     public restaurant getRestaurant() {
         return Restaurant;
     }
@@ -110,7 +125,9 @@ public class address {
     public void setRestaurant(restaurant restaurant) {
         Restaurant = restaurant;
     }
-*/
+
+
+
    /* // Overriding toString() method of String class
     @Override
     public String toString() {
