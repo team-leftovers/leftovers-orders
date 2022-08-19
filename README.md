@@ -1,6 +1,8 @@
 # leftovers-orders
 
 Order Creation/Update DTO (JSON)
+<br>
+```json
 {
     "driverId": integer,
     "customerId": integer,
@@ -9,6 +11,7 @@ Order Creation/Update DTO (JSON)
     "status": "enum string"
     "price": BigDecimal
 }
+```
 Valid values for status are {pending, accepted, working, waiting, delivery, delivered, cancelled, error}
 
 main endpoint /orders
