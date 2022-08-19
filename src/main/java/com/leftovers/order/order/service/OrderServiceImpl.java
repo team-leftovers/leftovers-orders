@@ -2,18 +2,21 @@ package com.leftovers.order.order.service;
 
 
 
+import com.leftovers.order.order.dto.CreateOrderDto;
+import com.leftovers.order.order.dto.UpdateOrderDto;
 import com.leftovers.order.order.model.Customer;
 import com.leftovers.order.order.model.Driver;
 import com.leftovers.order.order.model.Order;
 import com.leftovers.order.order.model.Restaurant;
 
-import com.leftovers.order.order.repository.OrderRepository;
+import com.leftovers.order.order.repository.*;
 
 import com.leftovers.order.order.exception.NoSuchOrderException;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,25 +24,29 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
+    private final CustomerRepository customerRepo;
+    private final DiscountRepository discountRepo;
+    private final DriverRepository driverRepo;
     private final OrderRepository orderRepo;
-/*
+    private final RestaurantRepository restaurantRepo;
+
     @Transactional
     @Override
     public Order createNewOrder(CreateOrderDto dto) {
         notNull(dto);
 
         Order order = Order.builder()
-                .driver(dto.driver)
-                .customer(dto.customer)
-                .restaurant(dto.restaurant)
-                .discount(dto.discount)
+                .driver(driverRepo.findById(dto.driverId).get())
+                .customer(customerRepo.findById(dto.customerId).get())
+                .restaurant(restaurantRepo.findById(dto.restaurantId).get())
+                .discount(discountRepo.findById(dto.discountId).get())
                 .status(dto.status)
                 .totalPrice(dto.price)
                 .build();
 
         return orderRepo.save(order);
     }
-*/
+
     @Override
     public List<Order> getAllOrders() {
         return orderRepo.findAll();
@@ -99,7 +106,7 @@ public class OrderServiceImpl implements OrderService {
         String fetched = fetchedOrder.get().getTotalPrice().toString();
         return fetched;
     }
-/*
+
     @Transactional
     @Override
     public Order updateOrder(Integer id, UpdateOrderDto dto) {
@@ -109,11 +116,10 @@ public class OrderServiceImpl implements OrderService {
             throw new NoSuchOrderException(id);
 
         Order order = result.get();
-
-        order.setDriver(dto.driver);
-        order.setCustomer(dto.customer);
-        order.setRestaurant(dto.restaurant);
-        order.setDiscount(dto.discount);
+        order.setDiscount(discountRepo.findById(dto.discountId).get());
+        order.setDriver(driverRepo.findById(dto.driverId).get());
+        order.setCustomer(customerRepo.findById(dto.customerId).get());
+        order.setRestaurant(restaurantRepo.findById(dto.restaurantId).get());
         order.setStatus(dto.status);
         order.setTotalPrice(dto.price);
 
@@ -128,7 +134,7 @@ public class OrderServiceImpl implements OrderService {
             throw new NoSuchOrderException(id);
     }
 
-   */
+
 
     // Utility function to determine if input was incorrectly null
     private void notNull(Object... ids) {

@@ -1,6 +1,8 @@
 package com.leftovers.order.order.controller;
 
 
+import com.leftovers.order.order.dto.CreateOrderDto;
+import com.leftovers.order.order.dto.UpdateOrderDto;
 import com.leftovers.order.order.model.Address;
 import com.leftovers.order.order.model.Account;
 import com.leftovers.order.order.model.Customer;
@@ -17,6 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.*;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +32,7 @@ public class OrderController {
     private static final String MAPPING = "/orders";
     private final OrderService service;
 
-/*
+
     @RequestMapping(path = "", method = RequestMethod.POST,
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Order> postRestaurant(@Valid @RequestBody CreateOrderDto dto) {
@@ -37,7 +41,7 @@ public class OrderController {
         var uri = URI.create(MAPPING + "/" + order.getId());
         return ResponseEntity.created(uri).body(order);
     }
-*/
+
 
 
         @RequestMapping(path = "", method = RequestMethod.GET,
@@ -98,7 +102,7 @@ public class OrderController {
         String fetchedThing = service.getTotalPrice(id);
         return fetchedThing;
     }
-/*
+
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT,
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Order> updateOrder(@PathVariable Integer id,
@@ -113,7 +117,7 @@ public class OrderController {
         service.deleteOrder(id);
         return ResponseEntity.noContent().build();
     }
-*/
+
 }
 /*
 import com.leftovers.order.order.model.order;

@@ -38,9 +38,4 @@ public class Discount {
     @Column(name = "value", nullable = false)
     private BigDecimal value;
 
-/*
-    @OneToMany
-    private List<Order> orders;
-    */
-
 }
