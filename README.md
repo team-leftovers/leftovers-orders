@@ -12,7 +12,7 @@ Order Creation/Update DTO (JSON)
     "price": BigDecimal
 }
 ```
-Valid values for status are {"pending", "accepted", "working", "waiting", "delivery", "delivered", "cancelled", "error"}
+Valid values for status are "pending", "accepted", "working", "waiting", "delivery", "delivered", "cancelled", and "error".
 
 main endpoint /orders
 POST:
