@@ -40,8 +40,8 @@ public class Restaurant {
     private String name;
 
     @ManyToOne
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = com.leftovers.order.order.model.Restaurant.class)
-    @JsonIdentityReference(alwaysAsId = true)
+    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = com.leftovers.order.order.model.Restaurant.class)
+    //@JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "address_id", nullable = false)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Address address;

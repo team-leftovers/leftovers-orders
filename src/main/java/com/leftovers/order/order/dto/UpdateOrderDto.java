@@ -20,18 +20,22 @@ import java.math.BigDecimal;
 public class UpdateOrderDto {
 
     @NotNull
-    @NotBlank(message = "Driver is required")
-    public Driver driver;
+    //@NotBlank(message = "Driver is required")
+    //public Driver driver;
+    public Integer driverId;
 
-    @NotNull
-    @NotBlank(message = "Customer is required")
-    public Customer customer;
+    //@NotNull
+    //@NotBlank(message = "Customer is required")
+    //public Customer customer;
+    public Integer customerId;
 
-    @NotNull
-    @NotBlank(message = "Restaurant is required")
-    public Restaurant restaurant;
+    //@NotNull
+    //@NotBlank(message = "Restaurant is required")
+    //public Restaurant restaurant;
+    public Integer restaurantId;
 
-    public Discount discount;
+    //public Discount discount;
+    public Integer discountId;
 
     //public EnumOrderStatus status;
     public String status;

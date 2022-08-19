@@ -53,37 +53,27 @@ public class Order {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = com.leftovers.order.order.model.Order.class)
     //@JsonIdentityReference(alwaysAsId = true)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = com.leftovers.order.order.model.Order.class)
-    @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "driver_id", referencedColumnName = "account_id", nullable = false)
     private Driver driver;
 
-
-
+    @ManyToOne(fetch = FetchType.LAZY)
     //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = com.leftovers.order.order.model.Order.class)
     //@JsonIdentityReference(alwaysAsId = true)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = com.leftovers.order.order.model.Order.class)
-    @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "customer_id", referencedColumnName = "account_id", nullable = false)
     private Customer customer;
 
+    @OneToOne(fetch = FetchType.LAZY)
     //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = com.leftovers.order.order.model.Order.class)
     //@JsonIdentityReference(alwaysAsId = true)
-    @OneToOne(fetch = FetchType.LAZY)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = com.leftovers.order.order.model.Order.class)
-    @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "restaurant_id", referencedColumnName = "id", nullable = false)
     private Restaurant restaurant;
 
+    @OneToOne(fetch = FetchType.LAZY)
     //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = com.leftovers.order.order.model.Order.class)
     //@JsonIdentityReference(alwaysAsId = true)
-    @OneToOne(fetch = FetchType.LAZY)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = com.leftovers.order.order.model.Order.class)
-    @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "discount_id", referencedColumnName = "id", nullable = true)
     private Discount discount;
 
@@ -96,94 +86,3 @@ public class Order {
     private BigDecimal totalPrice;
 
 }
-
-/*
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="orders")
-public class order {
-    @Id
-    @Column(name = "id", nullable = false)
-    public int id;
-
-    @Column(name = "driver_id")
-    public int driverId;
-
-    @Column(name = "customer_id")
-    public int customerId;
-
-    @Column(name = "restaurant_id")
-    public int restaurantId;
-
-    @Column(name = "discount_id")
-    public int discountId;
-
-    @Column(name = "status")
-    public int status;
-
-    @Column(name = "total_price")
-    public double totalPrice;
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public int getDriverId() {
-        return driverId;
-    }
-
-    public void setDriverId(int driverId) {
-        this.driverId = driverId;
-    }
-
-    public int getDiscountId() {
-        return discountId;
-    }
-
-    public void setDiscountId(int discountId) {
-        this.discountId = discountId;
-    }
-
-    public int getRestaurantId() {
-        return restaurantId;
-    }
-
-    public void setRestaurantId(int restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-}
-*/

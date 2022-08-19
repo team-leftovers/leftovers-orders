@@ -1,7 +1,10 @@
 package com.leftovers.order.order.service;
 
+import com.leftovers.order.order.dto.CreateOrderDto;
+import com.leftovers.order.order.dto.UpdateOrderDto;
 import com.leftovers.order.order.model.Customer;
 import com.leftovers.order.order.model.Driver;
+import com.leftovers.order.order.model.Order;
 import com.leftovers.order.order.model.Restaurant;
 
 
@@ -9,15 +12,15 @@ import java.util.List;
 
 public interface OrderService {
 
-    //com.leftovers.order.order.model.Order createNewOrder(CreateOrderDto dto);
+    com.leftovers.order.order.model.Order createNewOrder(CreateOrderDto dto);
     List<com.leftovers.order.order.model.Order> getAllOrders();
     com.leftovers.order.order.model.Order getOrder(Integer id);
     Driver getDriver(Integer id);
     Customer getCustomer(Integer id);
     Restaurant getRestaurant(Integer id);
     String getTotalPrice(Integer id);
-    //Order updateOrder(Integer id, UpdateOrderDto dto);
-    //void deleteOrder(Integer id);
+    Order updateOrder(Integer id, UpdateOrderDto dto);
+    void deleteOrder(Integer id);
 
 
 }
