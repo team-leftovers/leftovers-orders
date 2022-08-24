@@ -1,20 +1,8 @@
 package com.leftovers.order.order.repository;
 
-import com.leftovers.order.order.model.Address;
-import com.leftovers.order.order.model.Account;
-import com.leftovers.order.order.model.Customer;
-import com.leftovers.order.order.model.Discount;
-import com.leftovers.order.order.model.Driver;
-import com.leftovers.order.order.model.EnumAccountType;
-import com.leftovers.order.order.model.EnumOrderStatus;
-import com.leftovers.order.order.model.Food;
 import com.leftovers.order.order.model.Order;
-import com.leftovers.order.order.model.Restaurant;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -30,6 +18,12 @@ public interface OrderRepository extends CrudRepository<Order, Integer> {
     List<Order> findAll();
 
     int deleteOrderById(Integer id);
+
+    @Query("SELECT u FROM Order u WHERE u.id = 1")
+    Order test();
+
+//    @Query(value = "SELECT...")
+//    int validateCustomerRestaurantDriver(int custId, int restaurantId, int driverId )
 }
 /*
 import com.leftovers.order.order.model.order;

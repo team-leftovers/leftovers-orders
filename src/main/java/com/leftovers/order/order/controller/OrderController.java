@@ -29,9 +29,14 @@ import java.util.Optional;
 @RequestMapping(path = "/orders")
 @RequiredArgsConstructor
 public class OrderController {
-    private static final String MAPPING = "/orders";
+    private final String MAPPING = "/orders";
     private final OrderService service;
 
+    @RequestMapping(path = "/heartbeat", method = RequestMethod.GET)
+    public Boolean heartbeat()
+    {
+        return true;
+    }
 
     @RequestMapping(path = "", method = RequestMethod.POST,
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -43,29 +48,31 @@ public class OrderController {
     }
 
 
+    @RequestMapping(path = "", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<List<Order>> getAllOrders () {
+        log.info("GET Order");
+        var orders = service.getAllOrders();
+        if (orders.isEmpty())
+            return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(orders);
+    }
 
-        @RequestMapping(path = "", method = RequestMethod.GET,
-                produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-        public ResponseEntity<List<Order>> getAllOrders () {
-            log.info("GET Order");
-            var orders = service.getAllOrders();
-            if (orders.isEmpty())
-                return ResponseEntity.noContent().build();
-            return ResponseEntity.ok(orders);
-        }
-
-        @RequestMapping(path = "/{id}", method = RequestMethod.GET,
-                produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-        public ResponseEntity<Order> getOrderById (@PathVariable Integer id){
-        log.info("GET Order " + id);
-        return ResponseEntity.of(Optional.ofNullable(service.getOrder(id)));
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<Order> getOrderById (@PathVariable Integer id){
+    log.info("GET Order " + id);
+    return ResponseEntity.of(Optional.ofNullable(service.getOrder(id)));
     }
 
     @RequestMapping(path = "/test", method = RequestMethod.GET)
-    public String simplest_test()
+    public Order simplest_test()
     {
-        return "Orders exists";
+        return service.test();
+        //return "Orders exists";
     }
+
+
     @RequestMapping(path = "/{id}/Driver", method = RequestMethod.GET)
     public Driver getDriverByOrderId (@PathVariable Integer id){
         log.info("GET Order " + id);

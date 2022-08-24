@@ -22,6 +22,8 @@ public interface OrderService {
     Order updateOrder(Integer id, UpdateOrderDto dto);
     void deleteOrder(Integer id);
 
+    Order test();
+
 
 }
 
