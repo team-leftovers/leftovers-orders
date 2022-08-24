@@ -16,6 +16,8 @@ import com.leftovers.order.order.exception.NoSuchOrderException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Query;
+import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -24,11 +26,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
-    private final CustomerRepository customerRepo;
-    private final DiscountRepository discountRepo;
-    private final DriverRepository driverRepo;
+//    private final CustomerRepository customerRepo;
+//    private final DiscountRepository discountRepo;
+//    private final DriverRepository driverRepo;
     private final OrderRepository orderRepo;
-    private final RestaurantRepository restaurantRepo;
+//    private final RestaurantRepository restaurantRepo;
 
     @Transactional
     @Override
@@ -36,10 +38,10 @@ public class OrderServiceImpl implements OrderService {
         notNull(dto);
 
         Order order = Order.builder()
-                .driver(driverRepo.findById(dto.driverId).get())
-                .customer(customerRepo.findById(dto.customerId).get())
-                .restaurant(restaurantRepo.findById(dto.restaurantId).get())
-                .discount(discountRepo.findById(dto.discountId).get())
+                .driverId(dto.driverId)
+                .customerId(dto.customerId)
+                .restaurantId(dto.restaurantId)
+//                .discount(discountRepo.findById(dto.discountId).get())
                 .status(dto.status)
                 .totalPrice(dto.price)
                 .build();
@@ -60,53 +62,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-    public Driver getDriver(Integer id) {
-        notNull(id);
-        Optional<Order> fetchedOrder = orderRepo.findOrderById(id);
-        if(fetchedOrder.isEmpty())
-        {
-            return null;
-        }
-        //String fetched = fetchedOrder.get().getDriver().getLicensePlate();
-        Driver fetched = fetchedOrder.get().getDriver();
-        return fetched;
-    }
-
-    public Customer getCustomer(Integer id){
-        notNull(id);
-        Optional<Order> fetchedOrder = orderRepo.findOrderById(id);
-        if(fetchedOrder.isEmpty())
-        {
-            return null;
-        }
-        //String fetched = fetchedOrder.get().getDriver().getLicensePlate();
-        Customer fetched = fetchedOrder.get().getCustomer();
-        return fetched;
-    }
-    public Restaurant getRestaurant(Integer id){
-        notNull(id);
-        Optional<Order> fetchedOrder = orderRepo.findOrderById(id);
-        if(fetchedOrder.isEmpty())
-        {
-            return null;
-        }
-        //String fetched = fetchedOrder.get().getDriver().getLicensePlate();
-        Restaurant fetched = fetchedOrder.get().getRestaurant();
-        return fetched;
-    }
-
-    public String getTotalPrice(Integer id){
-        notNull(id);
-        Optional<Order> fetchedOrder = orderRepo.findOrderById(id);
-        if(fetchedOrder.isEmpty())
-        {
-            return null;
-        }
-        //String fetched = fetchedOrder.get().getDriver().getLicensePlate();
-        String fetched = fetchedOrder.get().getTotalPrice().toString();
-        return fetched;
-    }
-
     @Transactional
     @Override
     public Order updateOrder(Integer id, UpdateOrderDto dto) {
@@ -115,11 +70,25 @@ public class OrderServiceImpl implements OrderService {
         if(result.isEmpty())
             throw new NoSuchOrderException(id);
 
+//        public UserEntity getUserByIdWithTypedQuery(Long id) {
+//            TypedQuery<UserEntity> typedQuery
+//                    = getEntityManager().createQuery("SELECT u FROM UserEntity u WHERE u.id=:id", UserEntity.class);
+//            typedQuery.setParameter("id", id);
+//            return typedQuery.getSingleResult();
+//        }
+
+
+//        public UserEntity getUserByIdWithPlainQuery(Long id) {
+//            Query jpqlQuery = getEntityManager().createQuery("SELECT u FROM UserEntity u WHERE u.id=:id");
+//            jpqlQuery.setParameter("id", id);
+//            return (UserEntity) jpqlQuery.getSingleResult();
+//        }
+
         Order order = result.get();
-        order.setDiscount(discountRepo.findById(dto.discountId).get());
-        order.setDriver(driverRepo.findById(dto.driverId).get());
-        order.setCustomer(customerRepo.findById(dto.customerId).get());
-        order.setRestaurant(restaurantRepo.findById(dto.restaurantId).get());
+//        order.setDiscount(discountRepo.findById(dto.discountId).get());
+        order.setDriverId(dto.driverId);
+        order.setCustomerId(dto.customerId);
+        order.setRestaurantId(dto.restaurantId);
         order.setStatus(dto.status);
         order.setTotalPrice(dto.price);
 
@@ -134,6 +103,49 @@ public class OrderServiceImpl implements OrderService {
             throw new NoSuchOrderException(id);
     }
 
+    public Driver getDriver(Integer id) {
+        notNull(id);
+        Optional<Order> fetchedOrder = orderRepo.findOrderById(id);
+        if(fetchedOrder.isEmpty())
+        {
+            return null;
+        }
+        Driver fetched = fetchedOrder.get().getDriver();
+        return fetched;
+    }
+
+    public Customer getCustomer(Integer id){
+        notNull(id);
+        Optional<Order> fetchedOrder = orderRepo.findOrderById(id);
+        if(fetchedOrder.isEmpty())
+        {
+            return null;
+        }
+        Customer fetched = fetchedOrder.get().getCustomer();
+        return fetched;
+    }
+    public Restaurant getRestaurant(Integer id){
+        notNull(id);
+        Optional<Order> fetchedOrder = orderRepo.findOrderById(id);
+        if(fetchedOrder.isEmpty())
+        {
+            return null;
+        }
+        Restaurant fetched = fetchedOrder.get().getRestaurant();
+        return fetched;
+    }
+
+    public String getTotalPrice(Integer id){
+        notNull(id);
+        Optional<Order> fetchedOrder = orderRepo.findOrderById(id);
+        if(fetchedOrder.isEmpty())
+        {
+            return null;
+        }
+        String fetched = fetchedOrder.get().getTotalPrice().toString();
+        return fetched;
+    }
+
 
 
     // Utility function to determine if input was incorrectly null
@@ -142,5 +154,10 @@ public class OrderServiceImpl implements OrderService {
             if(id == null)
                 throw new IllegalArgumentException("Expected value but received null.");
         }
+    }
+
+    public Order test()
+    {
+        return orderRepo.test();
     }
 }

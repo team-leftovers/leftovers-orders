@@ -66,8 +66,8 @@ public class Customer //implements Serializable
     private Integer id;
 
     @OneToOne
-    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = com.leftovers.order.order.model.Customer.class)
-    //@JsonIdentityReference(alwaysAsId = true)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = com.leftovers.order.order.model.Customer.class)
+    @JsonIdentityReference(alwaysAsId = true)
     @PrimaryKeyJoinColumn(name = "account_id")//, referencedColumnName = "id")
     private Account account;
 

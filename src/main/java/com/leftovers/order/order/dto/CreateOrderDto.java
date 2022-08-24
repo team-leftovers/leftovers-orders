@@ -35,7 +35,7 @@ public class CreateOrderDto {
     public Integer restaurantId;
 
     //public Discount discount;
-    public Integer discountId;
+//    public Integer discountId;
 
     //public EnumOrderStatus status;
     public String status;
