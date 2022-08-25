@@ -27,6 +27,7 @@ public interface OrderItemService {
 
     Boolean validateAllFKeys(Integer orderId, Integer foodId);
 
+    Integer getNewestId();
 }
 
 /*

@@ -4,10 +4,7 @@ package com.leftovers.order.order.service;
 
 import com.leftovers.order.order.dto.CreateOrderDto;
 import com.leftovers.order.order.dto.UpdateOrderDto;
-import com.leftovers.order.order.model.Customer;
-import com.leftovers.order.order.model.Driver;
-import com.leftovers.order.order.model.Order;
-import com.leftovers.order.order.model.Restaurant;
+import com.leftovers.order.order.model.*;
 
 import com.leftovers.order.order.repository.*;
 
@@ -53,6 +50,8 @@ public class OrderServiceImpl implements OrderService {
                 .status(dto.status)
                 .totalPrice(dto.price)
                 .build();
+
+
 
         return Optional.of(orderRepo.save(order));
     }
@@ -226,6 +225,16 @@ public class OrderServiceImpl implements OrderService {
         return !(orderRepo.validateDiscount(discountId).isEmpty());
     }
 
+    public Integer getNewestId() {
+        List<Order> orders = orderRepo.findAll();
+        int testValue = 0;
+        for (Order i : orders) {
+            if (i.getId() > testValue) {
+                testValue = i.getId();
+            }
+        }
+        return testValue;
+    }
     /*public Boolean validateFKeys(Integer driverId, Integer customerId, Integer restaurantId, Integer discountId)
     {
 

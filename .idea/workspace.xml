@@ -4,26 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="817808ec-9890-4202-bc5f-e80a5d453690" name="Changes" comment="Fixed update to be able to omit DTO fields. Implemented single-query check to validate order foreign keys, added validation for individual foreign keys">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/OrderItemController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/CreateOrderItemDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/UpdateOrderItemDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/OrderItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/repository/OrderItemRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderItemService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderItemServiceImpl.java" afterDir="false" />
+    <list default="true" id="817808ec-9890-4202-bc5f-e80a5d453690" name="Changes" comment="Added OrderItems">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/leftovers/order/OrderItemsCrud.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/leftovers/order/OrdersCrud.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/OrderItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/OrderItemController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/CreateOrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/CreateOrderDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/UpdateOrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/UpdateOrderDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Food.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/CreateOrderItemDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/CreateOrderItemDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/UpdateOrderItemDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/UpdateOrderItemDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/repository/OrderItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/repository/OrderItemRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderItemServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderItemServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/leftovers/order/OrderApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/leftovers/order/OrderApplicationTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/controller/OrderController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/dto/CreateOrderDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/dto/CreateOrderDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/dto/UpdateOrderDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/dto/UpdateOrderDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order$OrderBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order$OrderBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Food$FoodBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Food$FoodBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Food.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Food.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderServiceImpl.class" afterDir="false" />
     </list>
@@ -85,17 +84,81 @@
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.OrderApplication">
-    <configuration name="checkHTTPResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="OrdersCrud" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="order" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.leftovers.order.tag.model.*" />
+          <option name="PATTERN" value="com.leftovers.order.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.leftovers.order" />
-      <option name="MAIN_CLASS_NAME" value="com.leftovers.order.checkHTTPResponse" />
+      <option name="MAIN_CLASS_NAME" value="com.leftovers.order.OrdersCrud" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrdersCrud.DeleteOrderItemTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="order" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.leftovers.order.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.leftovers.order" />
+      <option name="MAIN_CLASS_NAME" value="com.leftovers.order.OrdersCrud" />
+      <option name="METHOD_NAME" value="DeleteOrderItemTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrdersCrud.ReadOrderTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="order" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.leftovers.order.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.leftovers.order" />
+      <option name="MAIN_CLASS_NAME" value="com.leftovers.order.OrdersCrud" />
+      <option name="METHOD_NAME" value="ReadOrderTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrdersCrud.UpdateOrderItemFullDtoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="order" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.leftovers.order.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.leftovers.order" />
+      <option name="MAIN_CLASS_NAME" value="com.leftovers.order.OrdersCrud" />
+      <option name="METHOD_NAME" value="UpdateOrderItemFullDtoTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrdersCrud.UpdateOrderItemPartialDtoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="order" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.leftovers.order.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.leftovers.order" />
+      <option name="MAIN_CLASS_NAME" value="com.leftovers.order.OrdersCrud" />
+      <option name="METHOD_NAME" value="UpdateOrderItemPartialDtoTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -109,7 +172,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.checkHTTPResponse" />
+        <item itemvalue="JUnit.OrdersCrud" />
+        <item itemvalue="JUnit.OrdersCrud.DeleteOrderItemTest" />
+        <item itemvalue="JUnit.OrdersCrud.UpdateOrderItemPartialDtoTest" />
+        <item itemvalue="JUnit.OrdersCrud.UpdateOrderItemFullDtoTest" />
+        <item itemvalue="JUnit.OrdersCrud.ReadOrderTest" />
       </list>
     </recent_temporary>
   </component>
@@ -125,7 +192,7 @@
       <workItem from="1660240831867" duration="3419000" />
       <workItem from="1660609914296" duration="14145000" />
       <workItem from="1660764418804" duration="53308000" />
-      <workItem from="1661139434639" duration="52335000" />
+      <workItem from="1661139434639" duration="68301000" />
     </task>
     <task id="LOCAL-00001" summary="functional CRUD with lots of debris">
       <created>1660610732103</created>
@@ -169,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661413324887</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added OrderItems">
+      <created>1661429979480</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1661429979480</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -193,6 +267,7 @@
     <MESSAGE value="Full CRUD with improved design. Many repositories." />
     <MESSAGE value="Removed excess repositories while maintaining functionality" />
     <MESSAGE value="Fixed update to be able to omit DTO fields. Implemented single-query check to validate order foreign keys, added validation for individual foreign keys" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed update to be able to omit DTO fields. Implemented single-query check to validate order foreign keys, added validation for individual foreign keys" />
+    <MESSAGE value="Added OrderItems" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added OrderItems" />
   </component>
 </project>

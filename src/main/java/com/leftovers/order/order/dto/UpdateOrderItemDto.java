@@ -24,10 +24,8 @@ public class UpdateOrderItemDto {
 
     public Integer quantity = -1;
 
-   // public BigDecimal price = new BigDecimal(-1);
-
     public String additionalInstructions = "";
 
-    public Integer foodRating = -1;
+    public Integer foodRating = 0;
 
 }

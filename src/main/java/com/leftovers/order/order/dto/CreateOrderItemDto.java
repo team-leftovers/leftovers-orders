@@ -20,7 +20,6 @@ import java.sql.Time;
 //@Builder
 public class CreateOrderItemDto {
 
-
     @NotNull
     public Integer orderId;
 

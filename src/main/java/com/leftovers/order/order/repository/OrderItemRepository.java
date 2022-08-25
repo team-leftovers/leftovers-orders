@@ -12,8 +12,6 @@ import java.util.Optional;
 public interface OrderItemRepository extends JpaRepository<OrderItem, Integer> {
     Optional<OrderItem> findOrderItemById(Integer id);
 
-    //Optional<OrderItem> findTopByOrderByIdDesc();
-
     List<OrderItem> findAll();
 
     int deleteOrderItemById(Integer id);

@@ -41,6 +41,7 @@ public interface OrderService {
 
     Boolean validateOptionalFKeys(Integer driverId, Integer discountId);
 
+    Integer getNewestId();
 }
 
 /*
