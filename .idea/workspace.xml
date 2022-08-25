@@ -4,33 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="817808ec-9890-4202-bc5f-e80a5d453690" name="Changes" comment="Full CRUD with improved design. Many repositories.">
+    <list default="true" id="817808ec-9890-4202-bc5f-e80a5d453690" name="Changes" comment="Removed excess repositories while maintaining functionality">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/exception/BadDtoException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/OrderController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/CreateOrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/CreateOrderDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/UpdateOrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/UpdateOrderDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Driver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/EnumAccountType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/EnumOrderStatus.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/repository/CustomerRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/repository/DiscountRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/repository/DriverRepository.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/repository/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/repository/RestaurantRepository.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/controller/OrderController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/dto/CreateOrderDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/dto/CreateOrderDto.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/dto/UpdateOrderDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/dto/UpdateOrderDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Customer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Driver.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Driver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/EnumAccountType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/EnumOrderStatus.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order$OrderBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order$OrderBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/repository/CustomerRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/repository/DiscountRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/repository/DriverRepository.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/repository/OrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/repository/OrderRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/repository/RestaurantRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,7 +44,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="LEFT-215" />
+        <entry key="$PROJECT_DIR$" value="LEFT-199" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -131,7 +125,7 @@
       <workItem from="1660240831867" duration="3419000" />
       <workItem from="1660609914296" duration="14145000" />
       <workItem from="1660764418804" duration="53308000" />
-      <workItem from="1661139434639" duration="12813000" />
+      <workItem from="1661139434639" duration="37058000" />
     </task>
     <task id="LOCAL-00001" summary="functional CRUD with lots of debris">
       <created>1660610732103</created>
@@ -161,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660922030827</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Removed excess repositories while maintaining functionality">
+      <created>1661382657641</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1661382657641</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,6 +184,7 @@
     <MESSAGE value="Successful one to one and one to many foreign keys implemented. Even more debris" />
     <MESSAGE value="Full GET functionality with improved architecture and minimal debris" />
     <MESSAGE value="Full CRUD with improved design. Many repositories." />
-    <option name="LAST_COMMIT_MESSAGE" value="Full CRUD with improved design. Many repositories." />
+    <MESSAGE value="Removed excess repositories while maintaining functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed excess repositories while maintaining functionality" />
   </component>
 </project>
