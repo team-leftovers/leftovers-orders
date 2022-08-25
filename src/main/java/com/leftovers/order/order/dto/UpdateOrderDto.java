@@ -9,6 +9,7 @@ import com.leftovers.order.order.model.Order;
 import com.leftovers.order.order.model.Restaurant;
 
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -19,27 +20,14 @@ import java.math.BigDecimal;
 //@Builder
 public class UpdateOrderDto {
 
-    @NotNull
-    //@NotBlank(message = "Driver is required")
-    //public Driver driver;
-    public Integer driverId;
+    public Integer driverId = 0;
 
-    //@NotNull
-    //@NotBlank(message = "Customer is required")
-    //public Customer customer;
-    public Integer customerId;
-
-    //@NotNull
-    //@NotBlank(message = "Restaurant is required")
-    //public Restaurant restaurant;
-    public Integer restaurantId;
-
-    //public Discount discount;
-//    public Integer discountId;
+    public Integer discountId = 0;
 
     //public EnumOrderStatus status;
-    public String status;
+    public String status = "";
 
-    public BigDecimal price;
+    //should probably not be able to set price, only calculate it
+    //public BigDecimal price = new BigDecimal(0);
 
 }

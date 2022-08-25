@@ -16,9 +16,8 @@ import com.leftovers.order.order.exception.NoSuchOrderException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Query;
-import javax.persistence.*;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,16 +25,24 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
-//    private final CustomerRepository customerRepo;
-//    private final DiscountRepository discountRepo;
-//    private final DriverRepository driverRepo;
     private final OrderRepository orderRepo;
-//    private final RestaurantRepository restaurantRepo;
 
     @Transactional
     @Override
-    public Order createNewOrder(CreateOrderDto dto) {
+    public Optional<Order> createNewOrder(CreateOrderDto dto) {
         notNull(dto);
+
+        Integer customerId      = dto.getCustomerId();
+        Integer restaurantId    = dto.getRestaurantId();
+        Integer driverId        = dto.getDriverId();
+        Integer discountId      = dto.getDiscountId();
+
+    //if any of the foreign keys are invalid, return an empty Optional
+
+        if(!(validateAllFKeys(customerId, restaurantId, driverId, discountId))) {
+            //throw new BadDtoException("Bad Dto");
+            return Optional.empty();
+        }
 
         Order order = Order.builder()
                 .driverId(dto.driverId)
@@ -46,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
                 .totalPrice(dto.price)
                 .build();
 
-        return orderRepo.save(order);
+        return Optional.of(orderRepo.save(order));
     }
 
     @Override
@@ -64,37 +71,67 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public Order updateOrder(Integer id, UpdateOrderDto dto) {
+    public Optional<Order> updateOrder(Integer id, UpdateOrderDto dto) {
         notNull(id, dto);
         Optional<Order> result = orderRepo.findOrderById(id);
-        if(result.isEmpty())
+        if(result.isEmpty()) {
             throw new NoSuchOrderException(id);
+        }
 
-//        public UserEntity getUserByIdWithTypedQuery(Long id) {
-//            TypedQuery<UserEntity> typedQuery
-//                    = getEntityManager().createQuery("SELECT u FROM UserEntity u WHERE u.id=:id", UserEntity.class);
-//            typedQuery.setParameter("id", id);
-//            return typedQuery.getSingleResult();
-//        }
+        //get dto data
+        Integer driverId    = dto.getDriverId();
+        Integer discountId  = dto.getDiscountId();
+        String status       = dto.getStatus();
+        //BigDecimal price    = dto.getPrice();
 
-
-//        public UserEntity getUserByIdWithPlainQuery(Long id) {
-//            Query jpqlQuery = getEntityManager().createQuery("SELECT u FROM UserEntity u WHERE u.id=:id");
-//            jpqlQuery.setParameter("id", id);
-//            return (UserEntity) jpqlQuery.getSingleResult();
-//        }
 
         Order order = result.get();
-//        order.setDiscount(discountRepo.findById(dto.discountId).get());
-        order.setDriverId(dto.driverId);
-        order.setCustomerId(dto.customerId);
-        order.setRestaurantId(dto.restaurantId);
-        order.setStatus(dto.status);
-        order.setTotalPrice(dto.price);
 
-        return orderRepo.save(order);
+        //if any of the foreign keys are invalid, return an empty Optional
+
+
+        //compare all elements to default dto values to determine if they have been set
+        if(driverId != 0) {
+            if (!(validateDriver(driverId))) {
+                //throw new BadDtoException("Bad Dto");
+                return Optional.empty();
+            }
+            order.setDriverId(driverId);
+        }
+        if(discountId != 0) {
+            if (!(validateDiscount(discountId))) {
+                return Optional.empty();
+            }
+            order.setDiscountId(discountId);
+        }
+
+        if((!status.contentEquals (""))){
+            order.setStatus(status);
+        }
+/*
+        if(price.doubleValue() != 0)
+        {
+            order.setTotalPrice(price);
+        }
+*/
+        return Optional.ofNullable(orderRepo.save(order));
     }
 
+    @Override
+    public Boolean validateAllFKeys(Integer customerId, Integer restaurantId, Integer driverId, Integer discountId)
+    {
+        return !(orderRepo.validateAllFKeys(customerId, restaurantId, driverId, discountId).isEmpty());
+    }
+    @Override
+    public Boolean validateRequiredFKeys(Integer customerId, Integer restaurantId)
+    {
+        return !(orderRepo.validateRequiredFKeys(customerId, restaurantId).isEmpty());
+    }
+    @Override
+    public Boolean validateOptionalFKeys(Integer driverId, Integer discountId)
+    {
+        return !(orderRepo.validateOptionalFKeys(driverId, discountId).isEmpty());
+    }
     @Transactional
     @Override
     public void deleteOrder(Integer id) {
@@ -156,8 +193,73 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public Order test()
+    public Boolean validateDriver(Integer driverId)
     {
-        return orderRepo.test();
+        return !(orderRepo.validateDriver(driverId).isEmpty());
     }
+    public Boolean validateCustomer(Integer customerId)
+    {
+        return !(orderRepo.validateCustomer(customerId).isEmpty());
+    }
+    public Boolean validateRestaurant(Integer restaurantId)
+    {
+        return !(orderRepo.validateRestaurant(restaurantId).isEmpty());
+    }
+    public Boolean validateDiscount(Integer discountId)
+    {
+        return !(orderRepo.validateDiscount(discountId).isEmpty());
+    }
+
+    /*public Boolean validateFKeys(Integer driverId, Integer customerId, Integer restaurantId, Integer discountId)
+    {
+
+        //this is a clearly non-optimal approach, but it will do for now
+
+        if(!(validateDriver(driverId))) {
+            return false;
+        }
+
+        if(!(validateCustomer(customerId))) {
+            return false;
+        }
+
+        if(!(validateRestaurant(restaurantId))) {
+            return false;
+        }
+
+        if(!(validateDiscount(discountId))) {
+            return false;
+        }
+
+        return true;
+    }*/
+//    public Boolean validateFKeys(Integer driverId, Integer customerId, Integer restaurantId, Integer discountId)
+//    {
+//
+//        //this is a clearly non-optimal approach, but it will do for now
+//
+//
+//        //      return orderRepo.findOrderById(id)
+//        //                .orElseThrow(() -> new NoSuchOrderException(id));
+//
+//        if(!(validateDriver(driverId)))
+//        {
+//            //throw new BadDtoException("Bad Driver ID");
+//            return false;
+//        }
+//
+//        if(!(validateCustomer(customerId))) {
+//            return false;
+//        }
+//
+//        if(!(validateRestaurant(restaurantId))) {
+//            return false;
+//        }
+//
+//        if(!(validateDiscount(discountId))) {
+//            return false;
+//        }
+//
+//        return true;
+//    }
 }

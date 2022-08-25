@@ -19,23 +19,24 @@ import java.math.BigDecimal;
 //@Builder
 public class CreateOrderDto {
 
+
+    @NotNull
+    //@NotBlank(message = "Customer is required")
+    //public Customer customer;
+    public Integer customerId;
+
+    @NotNull
+    //@NotBlank(message = "Restaurant is required")
+    //public Restaurant restaurant;
+    public Integer restaurantId;
+
     //@NotNull
     //@NotBlank(message = "Driver is required")
     //public Driver driver;
     public Integer driverId;
 
-    //@NotNull
-    //@NotBlank(message = "Customer is required")
-    //public Customer customer;
-    public Integer customerId;
-
-    //@NotNull
-    //@NotBlank(message = "Restaurant is required")
-    //public Restaurant restaurant;
-    public Integer restaurantId;
-
     //public Discount discount;
-//    public Integer discountId;
+    public Integer discountId;
 
     //public EnumOrderStatus status;
     public String status;

@@ -20,7 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.*;
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,16 +37,20 @@ public class OrderController {
         return true;
     }
 
+    //**************************   CREATE   **************************************
     @RequestMapping(path = "", method = RequestMethod.POST,
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<Order> postRestaurant(@Valid @RequestBody CreateOrderDto dto) {
+    public ResponseEntity<Order> CreateNewOrder(@Valid @RequestBody CreateOrderDto dto) {
         log.info("POST Order");
-        var order = service.createNewOrder(dto);
-        var uri = URI.create(MAPPING + "/" + order.getId());
-        return ResponseEntity.created(uri).body(order);
+        //var order = service.createNewOrder(dto);
+        //var uri = URI.create(MAPPING + "/" + order.getId());
+        //return ResponseEntity.created(uri).body(order);
+        return ResponseEntity.of(service.createNewOrder(dto));
     }
 
+    //***********************   READ   **********************************
 
+    //GetAll
     @RequestMapping(path = "", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<List<Order>> getAllOrders () {
@@ -58,72 +61,117 @@ public class OrderController {
         return ResponseEntity.ok(orders);
     }
 
+    //Get By ID
     @RequestMapping(path = "/{id}", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Order> getOrderById (@PathVariable Integer id){
-    log.info("GET Order " + id);
-    return ResponseEntity.of(Optional.ofNullable(service.getOrder(id)));
+        log.info("GET Order " + id);
+        return ResponseEntity.of(Optional.ofNullable(service.getOrder(id)));
     }
 
-    @RequestMapping(path = "/test", method = RequestMethod.GET)
-    public Order simplest_test()
-    {
-        return service.test();
-        //return "Orders exists";
-    }
-
-
-    @RequestMapping(path = "/{id}/Driver", method = RequestMethod.GET)
+    //Get Driver
+    @RequestMapping(path = "/{id}/driver", method = RequestMethod.GET)
     public Driver getDriverByOrderId (@PathVariable Integer id){
         log.info("GET Order " + id);
         Driver fetchedThing = service.getDriver(id);
         return fetchedThing;
     }
-    @RequestMapping(path = "/{id}/Customer", method = RequestMethod.GET)
+
+    //Get customer
+    @RequestMapping(path = "/{id}/customer", method = RequestMethod.GET)
     public Customer getCustomerByOrderId (@PathVariable Integer id){
         log.info("GET Order " + id);
         Customer fetchedThing = service.getCustomer(id);
         return fetchedThing;
     }
-    @RequestMapping(path = "/{id}/Restaurant", method = RequestMethod.GET)
+
+    //Get restaurant
+    @RequestMapping(path = "/{id}/restaurant", method = RequestMethod.GET)
     public Restaurant getRestaurantByOrderId (@PathVariable Integer id){
         log.info("GET Order " + id);
         Restaurant fetchedThing = service.getRestaurant(id);
         return fetchedThing;
     }
-    @RequestMapping(path = "/{id}/Address", method = RequestMethod.GET)
+
+    //Get address
+    @RequestMapping(path = "/{id}/address", method = RequestMethod.GET)
     public Address getAddressByOrderId (@PathVariable Integer id){
         log.info("GET Order " + id);
         Address fetchedThing = service.getRestaurant(id).getAddress();
         return fetchedThing;
     }
-    @RequestMapping(path = "/{id}/Account", method = RequestMethod.GET)
+
+    //Get account
+    @RequestMapping(path = "/{id}/account", method = RequestMethod.GET)
     public Account getAccountByOrderId (@PathVariable Integer id){
         log.info("GET Order " + id);
         Account fetchedThing = service.getDriver(id).getAccount();
         return fetchedThing;
     }
-    @RequestMapping(path = "/{id}/Price", method = RequestMethod.GET)
+
+    //Get price
+    @RequestMapping(path = "/{id}/price", method = RequestMethod.GET)
     public String getPriceByOrderId (@PathVariable Integer id){
         log.info("GET Order " + id);
         String fetchedThing = service.getTotalPrice(id);
         return fetchedThing;
     }
 
+    //******************************    UPDATE    ******************************
+
+    //update order with id = {id} using dto in request body. all fields optional
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT,
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Order> updateOrder(@PathVariable Integer id,
-                                                       @Valid @RequestBody UpdateOrderDto dto) {
+                                             @Valid @RequestBody UpdateOrderDto dto) {
         log.info("PUT Order " + id);
-        return ResponseEntity.of(Optional.ofNullable(service.updateOrder(id, dto)));
+        //return ResponseEntity.of(Optional.ofNullable(service.updateOrder(id, dto)));
+        return ResponseEntity.of(service.updateOrder(id, dto));
     }
 
+
+    //********************    DELETE    *******************************
+
+    //delete order with id = {id}
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteOrder(@PathVariable Integer id) {
         log.info("DELETE Order " + id);
         service.deleteOrder(id);
         return ResponseEntity.noContent().build();
     }
+
+//    @RequestMapping(path = "/test/{id}", method = RequestMethod.GET)
+//    public List<Order> simple_test(@PathVariable Integer id)
+//    {
+//        return service.validateFKeys(id);
+//        //return service.test();
+//        //return "Orders exists";
+//    }
+
+
+
+
+    //****************  Garbage  ***************************************
+    @RequestMapping(path = "/check/{customerId}/{restaurantId}/{driverId}/{discountId}", method = RequestMethod.GET)
+    public Boolean validateFKeys(@PathVariable Integer customerId, @PathVariable Integer restaurantId, @PathVariable Integer driverId, @PathVariable Integer discountId)
+    {
+        return service.validateAllFKeys(customerId, restaurantId, driverId, discountId);
+
+        //return service.validateFKeys(driverId, customerId, restaurantId, discountId);
+        //return service.test();
+        //return "Orders exists";
+    }
+
+
+
+    @RequestMapping(path = "/validate", method = RequestMethod.GET)
+    public Boolean testValidate()
+    //public String testValidate(Integer driverId, Integer customerId, Integer restaurantId, Integer discountId)
+    {
+        return service.validateAllFKeys(1,1,2,1);
+        //return "Didn't crash!";
+    }
+
 
 }
 /*
