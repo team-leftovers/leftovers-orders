@@ -12,6 +12,7 @@ import lombok.*;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.sql.Time;
 
 @Data
 //@NoArgsConstructor
@@ -38,6 +39,7 @@ public class CreateOrderDto {
     //public Discount discount;
     public Integer discountId;
 
+    public Time time;
     //public EnumOrderStatus status;
     public String status;
 

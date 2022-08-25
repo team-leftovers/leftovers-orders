@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
@@ -42,9 +43,12 @@ public class Food {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "restaurant_id", nullable = false)
+    private Integer restaurantId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = com.leftovers.order.order.model.Food.class)
     @JsonIdentityReference(alwaysAsId = true)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="restaurant_id", referencedColumnName = "id")
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Restaurant restaurant;
 }

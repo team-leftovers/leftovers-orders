@@ -4,26 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="817808ec-9890-4202-bc5f-e80a5d453690" name="Changes" comment="Removed excess repositories while maintaining functionality">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/exception/BadDtoException.java" afterDir="false" />
+    <list default="true" id="817808ec-9890-4202-bc5f-e80a5d453690" name="Changes" comment="Fixed update to be able to omit DTO fields. Implemented single-query check to validate order foreign keys, added validation for individual foreign keys">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/OrderItemController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/CreateOrderItemDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/UpdateOrderItemDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/OrderItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/repository/OrderItemRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderItemService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderItemServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/OrderController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/CreateOrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/CreateOrderDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/UpdateOrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/UpdateOrderDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Food.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Food.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/repository/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/controller/OrderController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/dto/CreateOrderDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/dto/CreateOrderDto.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/dto/UpdateOrderDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/dto/UpdateOrderDto.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order$OrderBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order$OrderBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/repository/CustomerRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/repository/DiscountRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/repository/DriverRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/repository/OrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/repository/OrderRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/repository/RestaurantRepository.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderServiceImpl.class" afterDir="false" />
     </list>
@@ -35,8 +35,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -60,28 +60,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/westo/IdeaProjects/order/src/main/java/com/leftovers/order/account&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;70a17ffa722a3985b86d30b034ad06d7&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/westo/IdeaProjects/order/src/main/java/com/leftovers/order/orderitem",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
+    "spring.configuration.checksum": "70a17ffa722a3985b86d30b034ad06d7"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\westo\IdeaProjects\order\src\main\java\com\leftovers\order\orderitem" />
       <recent name="C:\Users\westo\IdeaProjects\order\src\main\java\com\leftovers\order\account" />
       <recent name="C:\Users\westo\IdeaProjects\order\src\main\java\com\leftovers\order\product" />
       <recent name="C:\Users\westo\IdeaProjects\order\src\main\java\com\leftovers\order\order" />
       <recent name="C:\Users\westo\IdeaProjects\order\src\main\java\com\leftovers\order\discount" />
-      <recent name="C:\Users\westo\IdeaProjects\order\src\main\java\com\leftovers\order\driver" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.OrderApplication">
@@ -125,7 +125,7 @@
       <workItem from="1660240831867" duration="3419000" />
       <workItem from="1660609914296" duration="14145000" />
       <workItem from="1660764418804" duration="53308000" />
-      <workItem from="1661139434639" duration="37058000" />
+      <workItem from="1661139434639" duration="52335000" />
     </task>
     <task id="LOCAL-00001" summary="functional CRUD with lots of debris">
       <created>1660610732103</created>
@@ -162,7 +162,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661382657641</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fixed update to be able to omit DTO fields. Implemented single-query check to validate order foreign keys, added validation for individual foreign keys">
+      <created>1661413324887</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1661413324887</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,6 +192,7 @@
     <MESSAGE value="Full GET functionality with improved architecture and minimal debris" />
     <MESSAGE value="Full CRUD with improved design. Many repositories." />
     <MESSAGE value="Removed excess repositories while maintaining functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed excess repositories while maintaining functionality" />
+    <MESSAGE value="Fixed update to be able to omit DTO fields. Implemented single-query check to validate order foreign keys, added validation for individual foreign keys" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed update to be able to omit DTO fields. Implemented single-query check to validate order foreign keys, added validation for individual foreign keys" />
   </component>
 </project>
