@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,10 +80,12 @@ public class OrderServiceImpl implements OrderService {
         }
 
         //get dto data
-        Integer driverId    = dto.getDriverId();
-        Integer discountId  = dto.getDiscountId();
-        String status       = dto.getStatus();
-        //BigDecimal price    = dto.getPrice();
+        Integer driverId        = dto.getDriverId();
+        Integer discountId      = dto.getDiscountId();
+        String status           = dto.getStatus();
+        Time deliveryTime       = dto.getDeliveryTime();
+        //BigDecimal price      = dto.getPrice();
+        Integer driverRating    = dto.getDriverRating();
 
 
         Order order = result.get();
@@ -105,15 +108,28 @@ public class OrderServiceImpl implements OrderService {
             order.setDiscountId(discountId);
         }
 
-        if((!status.contentEquals (""))){
+        if(!(status.contentEquals (""))){
             order.setStatus(status);
         }
-/*
-        if(price.doubleValue() != 0)
-        {
-            order.setTotalPrice(price);
+
+        //price should not be set-able, only calculated0
+//        if(price.doubleValue() != 0)
+//        {
+//            order.setTotalPrice(price);
+//        }
+
+
+        if(deliveryTime != null) {
+            order.setDeliveryTime(deliveryTime);
         }
-*/
+
+        if(driverRating != 0) {
+            if(driverRating <= 5) {
+                //some sort of thing to notify too high a rating? maybe an exception?
+                order.setDriverRating(driverRating);
+            }
+        }
+
         return Optional.ofNullable(orderRepo.save(order));
     }
 

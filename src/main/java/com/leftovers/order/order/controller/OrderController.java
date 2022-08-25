@@ -28,7 +28,7 @@ import java.util.Optional;
 @RequestMapping(path = "/orders")
 @RequiredArgsConstructor
 public class OrderController {
-    private final String MAPPING = "/orders";
+    //private final String MAPPING = "/orders";
     private final OrderService service;
 
     @RequestMapping(path = "/heartbeat", method = RequestMethod.GET)

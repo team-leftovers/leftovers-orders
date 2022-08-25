@@ -7,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Time;
 
 @Entity
 @Getter
@@ -63,7 +64,13 @@ public class Order {
     //private EnumOrderStatus status = EnumOrderStatus.error;
     private String status;
 
+    @Column(name = "estimated_delivery_time")
+    private Time deliveryTime;
+
     @Column(name = "total_price")
     private BigDecimal totalPrice;
+
+    @Column(name = "driver_rating")
+    private Integer driverRating;
 
 }
