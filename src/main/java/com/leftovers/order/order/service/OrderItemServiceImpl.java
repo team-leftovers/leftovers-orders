@@ -48,6 +48,7 @@ public class OrderItemServiceImpl implements OrderItemService {
                 .additionalInstructions(additionalInstructions)
                 .build();
 
+
         return Optional.of(orderItemRepo.save(orderItem));
 
     }
@@ -136,6 +137,25 @@ public class OrderItemServiceImpl implements OrderItemService {
     {
         return !(orderItemRepo.validateAllFKeys(orderId, foodId).isEmpty());
     }
+
+    public Integer getNewestId() {
+        List<OrderItem> orderItems = orderItemRepo.findAll();
+        int testValue = 0;
+        for (OrderItem i : orderItems) {
+            if (i.getId() > testValue) {
+                testValue = i.getId();
+            }
+        }
+        return testValue;
+    }
+
+//        Optional<OrderItem> orderItem = orderItemRepo.findTopOrderItemById();
+//        if(orderItem.isEmpty())
+//        {
+//            return 0;
+//        }
+//        return orderItem.get().getId();
+//    }
 
     // Utility function to determine if input was incorrectly null
     private void notNull(Object... ids) {

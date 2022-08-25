@@ -86,6 +86,12 @@ public class OrderItemController {
         service.deleteOrderItem(id);
         return ResponseEntity.noContent().build();
     }
+
+    @RequestMapping(path = "/newest", method = RequestMethod.GET)
+    public String getNewestId()
+    {
+        return Integer.toString(service.getNewestId());
+    }
 /*
     //Get Driver
     @RequestMapping(path = "/{id}/driver", method = RequestMethod.GET)

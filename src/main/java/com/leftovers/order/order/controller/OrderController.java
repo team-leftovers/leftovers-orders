@@ -140,13 +140,12 @@ public class OrderController {
         return ResponseEntity.noContent().build();
     }
 
-//    @RequestMapping(path = "/test/{id}", method = RequestMethod.GET)
-//    public List<Order> simple_test(@PathVariable Integer id)
-//    {
-//        return service.validateFKeys(id);
-//        //return service.test();
-//        //return "Orders exists";
-//    }
+    //***************   Utility  *************************
+    @RequestMapping(path = "/newest", method = RequestMethod.GET)
+    public String getNewestId()
+    {
+        return Integer.toString(service.getNewestId());
+    }
 
 
 
