@@ -111,7 +111,7 @@ public class OrdersCrud {
 
         //clean up the item created for the test
         this.mockMvc.perform(delete("/orders/" + newestId))
-                .andExpect(status().is2xxSuccessful());;
+                .andExpect(status().is2xxSuccessful());
     }
 
     @Test
