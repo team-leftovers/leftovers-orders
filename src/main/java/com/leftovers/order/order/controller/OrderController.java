@@ -36,6 +36,10 @@ public class OrderController {
         return true;
     }
 
+    //a near-nonfunctional change to test git proccesses
+    @RequestMapping(path = "/nothing", method = RequestMethod.GET)
+    public void nothing() {}
+
     @RequestMapping(path = "/true", method = RequestMethod.GET)
     public String returnTrue(){return "true";}
     //**************************   CREATE   **************************************
@@ -152,6 +156,7 @@ public class OrderController {
 
     //******************************    UPDATE    ******************************
 
+    //cross-origin allows the front end to access requests other than GET and POST
     //update order with id = {id} using dto in request body. all fields optional
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT,
