@@ -2,13 +2,9 @@ package com.leftovers.order.order.controller;
 
 
 import com.leftovers.order.order.dto.CreateOrderDto;
+import com.leftovers.order.order.dto.TransmitOrderDto;
 import com.leftovers.order.order.dto.UpdateOrderDto;
-import com.leftovers.order.order.model.Address;
-import com.leftovers.order.order.model.Account;
-import com.leftovers.order.order.model.Customer;
-import com.leftovers.order.order.model.Driver;
-import com.leftovers.order.order.model.Order;
-import com.leftovers.order.order.model.Restaurant;
+import com.leftovers.order.order.model.*;
 
 import com.leftovers.order.order.service.OrderService;
 
@@ -20,16 +16,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.*;
-import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+
+
 
 @Slf4j
 @RestController
 @RequestMapping(path = "/orders")
 @RequiredArgsConstructor
 public class OrderController {
-    private final String MAPPING = "/orders";
+    //private final String MAPPING = "/orders";
     private final OrderService service;
 
     @RequestMapping(path = "/heartbeat", method = RequestMethod.GET)
@@ -38,16 +36,22 @@ public class OrderController {
         return true;
     }
 
+    @RequestMapping(path = "/true", method = RequestMethod.GET)
+    public String returnTrue(){return "true";}
+    //**************************   CREATE   **************************************
     @RequestMapping(path = "", method = RequestMethod.POST,
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<Order> postRestaurant(@Valid @RequestBody CreateOrderDto dto) {
+    public ResponseEntity<Order> CreateNewOrder(@Valid @RequestBody CreateOrderDto dto) {
         log.info("POST Order");
-        var order = service.createNewOrder(dto);
-        var uri = URI.create(MAPPING + "/" + order.getId());
-        return ResponseEntity.created(uri).body(order);
+        //var order = service.createNewOrder(dto);
+        //var uri = URI.create(MAPPING + "/" + order.getId());
+        //return ResponseEntity.created(uri).body(order);
+        return ResponseEntity.of(service.createNewOrder(dto));
     }
 
+    //***********************   READ   **********************************
 
+    //GetAll
     @RequestMapping(path = "", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<List<Order>> getAllOrders () {
@@ -58,66 +62,112 @@ public class OrderController {
         return ResponseEntity.ok(orders);
     }
 
+    //Get By ID
     @RequestMapping(path = "/{id}", method = RequestMethod.GET,
             produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Order> getOrderById (@PathVariable Integer id){
-    log.info("GET Order " + id);
-    return ResponseEntity.of(Optional.ofNullable(service.getOrder(id)));
+        log.info("GET Order " + id);
+        Optional<Order> fetchedOrder = Optional.ofNullable(service.getOrder(id));
+        if(fetchedOrder.isEmpty())
+        {
+            //this doesn't happen due to exception thrown in service.getOrder(id) call stack. fix later
+            log.info("Empty return");
+        }
+        else
+        {
+            //log.info( fetchedOrder.get().toString());
+            log.info(String.valueOf(ResponseEntity.of(fetchedOrder)));
+        }
+        //return ResponseEntity.of(Optional.ofNullable(service.getOrder(id)));
+        return ResponseEntity.of(fetchedOrder);
     }
 
-    @RequestMapping(path = "/test", method = RequestMethod.GET)
-    public Order simplest_test()
-    {
-        return service.test();
-        //return "Orders exists";
+    //Get OrderItem from Order by ID and list index
+    @RequestMapping(path = "/{id}/{index}", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<OrderItem> getOrderItemFromOrder (@PathVariable Integer id, @PathVariable Integer index) {
+        log.info("GET Order " + id + ", Item " + index);
+        Optional<OrderItem> orderItem = Optional.ofNullable(service.getOrderItemFromOrder(id, index));
+        //return the OrderItem in a ResponseEntity
+        return ResponseEntity.of(orderItem);
     }
 
+    //Get Food from Order by ID and list index
+    @RequestMapping(path = "/{id}/{index}/food", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<Food> getFoodFromOrder (@PathVariable Integer id, @PathVariable Integer index) {
+        log.info("GET Order " + id + ", Item " + index + ": Food");
+        Optional<Food> food = Optional.ofNullable(service.getFoodFromOrder(id, index));
+        //return the Food in a ResponseEntity
+        return ResponseEntity.of(food);
+    }
 
-    @RequestMapping(path = "/{id}/Driver", method = RequestMethod.GET)
+    //Get Driver
+    @RequestMapping(path = "/{id}/driver", method = RequestMethod.GET)
     public Driver getDriverByOrderId (@PathVariable Integer id){
         log.info("GET Order " + id);
         Driver fetchedThing = service.getDriver(id);
         return fetchedThing;
     }
-    @RequestMapping(path = "/{id}/Customer", method = RequestMethod.GET)
+
+    //Get customer
+    @RequestMapping(path = "/{id}/customer", method = RequestMethod.GET)
     public Customer getCustomerByOrderId (@PathVariable Integer id){
         log.info("GET Order " + id);
         Customer fetchedThing = service.getCustomer(id);
         return fetchedThing;
     }
-    @RequestMapping(path = "/{id}/Restaurant", method = RequestMethod.GET)
+
+    //Get restaurant
+    @RequestMapping(path = "/{id}/restaurant", method = RequestMethod.GET)
     public Restaurant getRestaurantByOrderId (@PathVariable Integer id){
         log.info("GET Order " + id);
         Restaurant fetchedThing = service.getRestaurant(id);
         return fetchedThing;
     }
-    @RequestMapping(path = "/{id}/Address", method = RequestMethod.GET)
+
+    //Get address
+    @RequestMapping(path = "/{id}/address", method = RequestMethod.GET)
     public Address getAddressByOrderId (@PathVariable Integer id){
         log.info("GET Order " + id);
         Address fetchedThing = service.getRestaurant(id).getAddress();
         return fetchedThing;
     }
-    @RequestMapping(path = "/{id}/Account", method = RequestMethod.GET)
+
+    //Get account
+    @RequestMapping(path = "/{id}/account", method = RequestMethod.GET)
     public Account getAccountByOrderId (@PathVariable Integer id){
         log.info("GET Order " + id);
         Account fetchedThing = service.getDriver(id).getAccount();
         return fetchedThing;
     }
-    @RequestMapping(path = "/{id}/Price", method = RequestMethod.GET)
+
+    //Get price
+    @RequestMapping(path = "/{id}/price", method = RequestMethod.GET)
     public String getPriceByOrderId (@PathVariable Integer id){
         log.info("GET Order " + id);
         String fetchedThing = service.getTotalPrice(id);
         return fetchedThing;
     }
 
+    //******************************    UPDATE    ******************************
+
+    //update order with id = {id} using dto in request body. all fields optional
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT,
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Order> updateOrder(@PathVariable Integer id,
-                                                       @Valid @RequestBody UpdateOrderDto dto) {
+                                             @Valid @RequestBody UpdateOrderDto dto) {
         log.info("PUT Order " + id);
-        return ResponseEntity.of(Optional.ofNullable(service.updateOrder(id, dto)));
+        //return ResponseEntity.of(Optional.ofNullable(service.updateOrder(id, dto)));
+        return ResponseEntity.of(service.updateOrder(id, dto));
     }
 
+
+    //********************    DELETE    *******************************
+
+    //delete order with id = {id}
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteOrder(@PathVariable Integer id) {
         log.info("DELETE Order " + id);
@@ -125,7 +175,124 @@ public class OrderController {
         return ResponseEntity.noContent().build();
     }
 
+    //***************   Utility  *************************
+    @RequestMapping(path = "/newest", method = RequestMethod.GET)
+    public String getNewestId()
+    {
+        return Integer.toString(service.getNewestId());
+    }
+
+
+
+
+    //****************  Garbage  ***************************************
+    @RequestMapping(path = "/pagetest", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<Object> getPageOrders () {
+        log.info("GET Order");
+        HashMap<String, Object> orderPages = service.getAllOrders(0, 2);
+        return ResponseEntity.ok(orderPages.get("orders"));
+    }
+
+    @RequestMapping(path = "/dtotest/{id}", method = RequestMethod.GET,
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<TransmitOrderDto> getTransmitOrderDto (@PathVariable Integer id) {
+           log.info("GET Order " + id);
+        Optional<Order> fetchedOrder = Optional.ofNullable(service.getOrder(id));
+        log.info("Optional<>:       GET output " + fetchedOrder);
+        log.info("with .get():      GET output " + fetchedOrder.get());
+        log.info("with .toString(): GET output " + fetchedOrder.get().toString());
+
+        log.info("GET TDTO from " + id);
+        Optional<TransmitOrderDto> fetchedDto = service.createTransmitOrderDto(fetchedOrder.get());
+        if (fetchedDto.isPresent())
+        {
+            log.info("Optional<>:       dto output " + fetchedDto);
+            log.info("with .get():      dto output " + fetchedDto.get());
+            log.info("with .toString(): dto output " + fetchedDto.get().toString());
+        }
+        else
+        {
+            log.info("Empty TDTO Optional");
+        }
+        return ResponseEntity.of(fetchedDto);
+    }
+
+    @RequestMapping(path = "/check/{customerId}/{restaurantId}/{driverId}/{discountId}", method = RequestMethod.GET)
+    public Boolean validateFKeys(@PathVariable Integer customerId, @PathVariable Integer restaurantId, @PathVariable Integer driverId, @PathVariable Integer discountId)
+    {
+        return service.validateAllFKeys(customerId, restaurantId, driverId, discountId);
+
+        //return service.validateFKeys(driverId, customerId, restaurantId, discountId);
+        //return service.test();
+        //return "Orders exists";
+    }
+
+
+
+    @RequestMapping(path = "/validate", method = RequestMethod.GET)
+    public Boolean testValidate()
+    //public String testValidate(Integer driverId, Integer customerId, Integer restaurantId, Integer discountId)
+    {
+        return service.validateAllFKeys(1,1,2,1);
+        //return "Didn't crash!";
+    }
+
+
 }
+
+
+
+//    //Get OrderItem from Order by ID and list index
+////    @RequestMapping(path = "/{id}/{index}", method = RequestMethod.GET,
+////            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+//    public ResponseEntity<OrderItem> getOrderItemFromOrder2 (@PathVariable Integer id, @PathVariable Integer index){
+//        log.info("GET Order " + id + ", Item " + index);
+//
+//        //check for negative index
+//        if(index < 0)
+//        {
+//            return ResponseEntity.of(Optional.empty());
+//        }
+//
+//        //get order
+//        Optional<Order> fetchedOrder = Optional.ofNullable(service.getOrder(id));
+//        //check if getting order succeeded
+//        if(fetchedOrder.isEmpty())
+//        {
+//            //no order found
+//
+//            //this doesn't happen due to exception thrown in service.getOrder(id) call stack. fix later
+//            log.info("Empty return");
+//            return ResponseEntity.of(Optional.empty());
+//        }
+//        else
+//        {
+//            Optional<OrderItem> fetchedItem;
+//
+//            //found order, get item
+//            //check if index is within list bounds
+//            if(fetchedOrder.get().getItems().size() <= index)
+//            {
+//                fetchedItem = Optional.empty();
+//            }
+//
+//            fetchedItem = Optional.of(fetchedOrder
+//                    .get()          //get the Order out of the Optional (already checked for empty)
+//                    .getItems()     //get the OrderItem List out of the Order
+//                    .get(index));   //get the specific OrderItem out of the List
+//
+//            //record the event
+//            log.info(String.valueOf(ResponseEntity.of(fetchedItem)));
+//
+//            //return the OrderItem in a ResponseEntity
+//            return ResponseEntity.of(fetchedItem);
+//        }
+//        //all control paths have a return, but still...
+//        //return ResponseEntity.of(Optional.empty());
+//        //cant actually include the return line, because unreachable code is a compile error
+//    }
+
 /*
 import com.leftovers.order.order.model.order;
 import org.springframework.beans.factory.annotation.Autowired;

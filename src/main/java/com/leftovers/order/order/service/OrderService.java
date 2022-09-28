@@ -1,29 +1,57 @@
 package com.leftovers.order.order.service;
 
 import com.leftovers.order.order.dto.CreateOrderDto;
+import com.leftovers.order.order.dto.TransmitOrderDto;
 import com.leftovers.order.order.dto.UpdateOrderDto;
-import com.leftovers.order.order.model.Customer;
-import com.leftovers.order.order.model.Driver;
-import com.leftovers.order.order.model.Order;
-import com.leftovers.order.order.model.Restaurant;
+import com.leftovers.order.order.model.*;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 public interface OrderService {
 
-    com.leftovers.order.order.model.Order createNewOrder(CreateOrderDto dto);
-    List<com.leftovers.order.order.model.Order> getAllOrders();
-    com.leftovers.order.order.model.Order getOrder(Integer id);
+    Optional<Order> createNewOrder(CreateOrderDto dto);
+
+    List<Order> getAllOrders();
+
+    Order getOrder(Integer id);
+
+    OrderItem getOrderItemFromOrder(Integer id, Integer index);
+    Boolean verifyIdAvailability(Integer orderId);
+    Food getFoodFromOrder(Integer id, Integer index);
+
     Driver getDriver(Integer id);
+
     Customer getCustomer(Integer id);
+
     Restaurant getRestaurant(Integer id);
+
     String getTotalPrice(Integer id);
-    Order updateOrder(Integer id, UpdateOrderDto dto);
+
+    Optional<Order> updateOrder(Integer id, UpdateOrderDto dto);
+
     void deleteOrder(Integer id);
 
-    Order test();
+    Boolean validateDriver(Integer driverId);
 
+    Boolean validateCustomer(Integer customerId);
+
+    Boolean validateRestaurant(Integer restaurantId);
+
+    Boolean validateDiscount(Integer discountId);
+
+    Boolean validateAllFKeys(Integer customerId, Integer restaurantId, Integer driverId, Integer discountId);
+    Boolean validateRequiredFKeys(Integer customerId, Integer restaurantId);
+
+    Boolean validateOptionalFKeys(Integer driverId, Integer discountId);
+
+    Integer getNewestId();
+
+    public HashMap<String, Object> getAllOrders(int pageNo, int pageSize);
+
+    public Optional<TransmitOrderDto> createTransmitOrderDto(Order order);
 
 }
 

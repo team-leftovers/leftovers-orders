@@ -9,7 +9,6 @@ import com.leftovers.order.order.model.Order;
 import com.leftovers.order.order.model.Restaurant;
 
 import lombok.*;
-import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -19,19 +18,14 @@ import java.sql.Time;
 //@NoArgsConstructor
 //@AllArgsConstructor
 //@Builder
-public class UpdateOrderDto {
+public class UpdateOrderItemDto {
 
-    private Integer driverId = 0;
+    public Integer foodId = 0;
 
-    private Integer discountId = 0;
+    public Integer quantity = -1;
 
-    //public EnumOrderStatus status;
-    private String orderStatus = "";
+    public String additionalInstructions = "";
 
-    private Time deliveryTime;
-
-    private BigDecimal totalPrice = new BigDecimal(0);
-
-    private Integer driverRating = 0;
+    public Integer foodRating = 0;
 
 }
