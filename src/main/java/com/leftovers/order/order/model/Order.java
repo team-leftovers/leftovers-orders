@@ -8,6 +8,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.util.List;
 
 @Entity
 @Getter
@@ -73,4 +74,17 @@ public class Order {
     @Column(name = "driver_rating")
     private Integer driverRating;
 
+    @OneToMany(mappedBy="order")
+    private List<OrderItem> items;
+
+    public BigDecimal updatePrice()
+    {
+        BigDecimal accumulator = new BigDecimal(0);
+        for (OrderItem i:items)
+        {
+            accumulator = accumulator.add(i.getFood().getPrice().multiply(new BigDecimal(i.getQuantity())));
+        }
+        setTotalPrice(accumulator);
+        return accumulator;
+    }
 }

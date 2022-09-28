@@ -1,10 +1,12 @@
 package com.leftovers.order.order.service;
 
 import com.leftovers.order.order.dto.CreateOrderDto;
+import com.leftovers.order.order.dto.TransmitOrderDto;
 import com.leftovers.order.order.dto.UpdateOrderDto;
 import com.leftovers.order.order.model.*;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +17,10 @@ public interface OrderService {
     List<Order> getAllOrders();
 
     Order getOrder(Integer id);
+
+    OrderItem getOrderItemFromOrder(Integer id, Integer index);
+    Boolean verifyIdAvailability(Integer orderId);
+    Food getFoodFromOrder(Integer id, Integer index);
 
     Driver getDriver(Integer id);
 
@@ -42,6 +48,11 @@ public interface OrderService {
     Boolean validateOptionalFKeys(Integer driverId, Integer discountId);
 
     Integer getNewestId();
+
+    public HashMap<String, Object> getAllOrders(int pageNo, int pageSize);
+
+    public Optional<TransmitOrderDto> createTransmitOrderDto(Order order);
+
 }
 
 /*

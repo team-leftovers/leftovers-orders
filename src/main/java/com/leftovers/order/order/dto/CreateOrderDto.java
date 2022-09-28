@@ -1,18 +1,17 @@
 package com.leftovers.order.order.dto;
 
-import com.leftovers.order.order.model.Address;
-import com.leftovers.order.order.model.Account;
-import com.leftovers.order.order.model.Customer;
-import com.leftovers.order.order.model.Driver;
-import com.leftovers.order.order.model.Discount;
-import com.leftovers.order.order.model.Order;
-import com.leftovers.order.order.model.Restaurant;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.leftovers.order.order.model.*;
 
 import lombok.*;
 
+import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.util.List;
 
 @Data
 //@NoArgsConstructor
@@ -23,25 +22,30 @@ public class CreateOrderDto {
     @NotNull
     //@NotBlank(message = "Customer is required")
     //public Customer customer;
-    public Integer customerId;
+    private Integer customerId;
 
     @NotNull
     //@NotBlank(message = "Restaurant is required")
-    //public Restaurant restaurant;
-    public Integer restaurantId;
+    //private Restaurant restaurant;
+    private Integer restaurantId;
 
     //@NotNull
     //@NotBlank(message = "Driver is required")
-    //public Driver driver;
-    public Integer driverId;
+    //private Driver driver;
+    private Integer driverId;
 
-    //public Discount discount;
-    public Integer discountId;
+    //private Discount discount;
+    private Integer discountId;
 
-    public Time time;
-    //public EnumOrderStatus status;
-    public String status;
+    private Time deliveryTime;// = Time.valueOf("01:01:01");
 
-    public BigDecimal price;
+    //private EnumOrderStatus status;
+    private String orderStatus = "pending";
 
+    private BigDecimal totalPrice;
+
+    private Integer driverRating;
+
+    //gonna need to think about how to make this work
+//    private List<OrderItem> items;
 }
