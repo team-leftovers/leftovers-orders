@@ -37,7 +37,7 @@ public class OrderController {
     }
 
     //a near-nonfunctional change to test git proccesses
-    @RequestMapping(path = "/nothing", method = RequestMethod.GET)
+    @RequestMapping(path = "/empty", method = RequestMethod.GET)
     public void nothing() {}
 
     @RequestMapping(path = "/true", method = RequestMethod.GET)
