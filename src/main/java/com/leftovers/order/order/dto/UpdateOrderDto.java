@@ -21,17 +21,17 @@ import java.sql.Time;
 //@Builder
 public class UpdateOrderDto {
 
-    public Integer driverId = 0;
+    private Integer driverId = 0;
 
-    public Integer discountId = 0;
+    private Integer discountId = 0;
 
     //public EnumOrderStatus status;
-    public String status = "";
+    private String orderStatus = "";
 
-    public Time deliveryTime;
+    private Time deliveryTime;
 
-    public Integer driverRating = 0;
-    //should probably not be able to set price, only calculate it
-    //public BigDecimal price = new BigDecimal(0);
+    private BigDecimal totalPrice = new BigDecimal(0);
+
+    private Integer driverRating = 0;
 
 }

@@ -127,7 +127,8 @@ public class OrdersCrud {
                                 "\"status\":\"pending\"," +
                                 "\"price\": 55.25" +
                                 "}")))
-                .andExpect(status().is2xxSuccessful());
+                //.andExpect(status().is2xxSuccessful());
+                .andExpect(status().isCreated());
 
         //find the newest item
         String newestId = this.mockMvc.perform(get("/orders/newest"))

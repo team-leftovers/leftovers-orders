@@ -37,7 +37,7 @@ public class OrderItemController {
     //**************************   CREATE   **************************************
     @RequestMapping(path = "", method = RequestMethod.POST,
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<OrderItem> CreateNewOrderItem(@Valid @RequestBody CreateOrderItemDto dto) {
+    public ResponseEntity<OrderItem> createNewOrderItem(@Valid @RequestBody CreateOrderItemDto dto) {
         log.info("POST OrderItem");
 //        var orderItem = service.createNewOrderItem(dto);
 //        var uri = URI.create("orderitems" + "/" + orderItem.get().getId());

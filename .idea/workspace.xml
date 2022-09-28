@@ -5,7 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="817808ec-9890-4202-bc5f-e80a5d453690" name="Changes" comment="Unit tests for CRUD on Orders and OrderItems">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/TransmitOrderDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/OrderApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/OrderApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/OrderItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/controller/OrderItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/CreateOrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/CreateOrderDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/UpdateOrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/dto/UpdateOrderDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/model/OrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/repository/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/leftovers/order/order/service/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/leftovers/order/OrdersCrud.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/leftovers/order/OrdersCrud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/controller/OrderController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/controller/OrderItemController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/controller/OrderItemController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order$OrderBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order$OrderBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/OrderItem$OrderItemBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/OrderItem$OrderItemBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/OrderItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/model/OrderItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/repository/OrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/repository/OrderRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/leftovers/order/order/service/OrderServiceImpl.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +46,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="LEFT-199" />
+        <entry key="$PROJECT_DIR$" value="LEFT-212" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -64,7 +86,7 @@
       <recent name="C:\Users\westo\IdeaProjects\order\src\main\java\com\leftovers\order\discount" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.OrdersCrud">
+  <component name="RunManager" selected="Spring Boot.OrderApplication">
     <configuration name="OrdersCrud" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="order" />
       <extension name="coverage">
@@ -176,6 +198,11 @@
       <workItem from="1661139434639" duration="71769000" />
       <workItem from="1662008201834" duration="12000" />
       <workItem from="1662008316475" duration="1692000" />
+      <workItem from="1662587612362" duration="8555000" />
+      <workItem from="1662607324823" duration="2064000" />
+      <workItem from="1662642371976" duration="7577000" />
+      <workItem from="1663630844934" duration="4180000" />
+      <workItem from="1663726912816" duration="22945000" />
     </task>
     <task id="LOCAL-00001" summary="functional CRUD with lots of debris">
       <created>1660610732103</created>
@@ -247,7 +274,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662008775553</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Unit tests for CRUD on Orders and OrderItems">
+      <created>1662587657294</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1662587657295</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -258,7 +292,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="LEFT-191" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>

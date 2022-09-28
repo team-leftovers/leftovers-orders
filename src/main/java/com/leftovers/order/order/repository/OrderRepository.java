@@ -2,6 +2,8 @@ package com.leftovers.order.order.repository;
 
 import com.leftovers.order.order.model.*;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -17,7 +19,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     //List<Order> findRestaurantByNameContainingIgnoreCase(String str);
 
     List<Order> findAll();
-
+    Page<Order> findAll(Pageable pageable);
     int deleteOrderById(Integer id);
 
     @Query("SELECT u FROM Driver u WHERE u.id = ?1")
@@ -38,9 +40,15 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     //@Query(value = "SELECT * FROM tbl_order WHERE EXISTS(SELECT * FROM tbl_customer WHERE account_id = 1) LIMIT 1",
     //The below one worked
     //@Query(value = "SELECT * FROM tbl_order WHERE EXISTS(SELECT * FROM tbl_driver WHERE account_id = 2) AND EXISTS(SELECT * FROM tbl_customer WHERE account_id = 1) AND EXISTS(SELECT * FROM tbl_restaurant WHERE id = 1) AND EXISTS(SELECT * FROM tbl_discount WHERE id = 1) LIMIT 1",
+
+    @Query(value = "SELECT * FROM tbl_order WHERE EXISTS(SELECT * FROM tbl_order WHERE id = ?1) LIMIT 1",
+            nativeQuery = true)
+    public Optional<Order> verifyIdAvailability(Integer orderId);
+
     @Query(value = "SELECT * FROM tbl_order WHERE EXISTS(SELECT * FROM tbl_customer WHERE account_id = ?1) AND EXISTS(SELECT * FROM tbl_restaurant WHERE id = ?2) AND EXISTS(SELECT * FROM tbl_driver WHERE account_id = ?3) AND EXISTS(SELECT * FROM tbl_discount WHERE id = ?4) LIMIT 1",
             nativeQuery = true)
-    Optional<Order> validateAllFKeys(Integer customerId, Integer restaurantId, Integer driverid, Integer discountId);
+    Optional<Order> validateAllFKeys(Integer customerId, Integer restaurantId, Integer driverId, Integer discountId);
+
     @Query(value = "SELECT * FROM tbl_order WHERE EXISTS(SELECT * FROM tbl_customer WHERE account_id = ?1) AND EXISTS(SELECT * FROM tbl_restaurant WHERE id = ?2) LIMIT 1",
             nativeQuery = true)
     Optional<Order> validateRequiredFKeys(Integer customerId, Integer restaurantId);

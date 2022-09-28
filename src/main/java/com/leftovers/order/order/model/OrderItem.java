@@ -25,7 +25,7 @@ public class OrderItem {
     @Column(name = "order_id", nullable = false)
     private Integer orderId;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = com.leftovers.order.order.model.Order.class)
     @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "order_id", referencedColumnName = "id", insertable = false, updatable = false)
@@ -35,10 +35,10 @@ public class OrderItem {
     private Integer foodId;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "price", scope = com.leftovers.order.order.model.Food.class)
-    @JsonIdentityReference(alwaysAsId = true)
+//    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "price", scope = com.leftovers.order.order.model.Food.class)
+//    @JsonIdentityReference(alwaysAsId = true)
     @JoinColumn(name = "food_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private Food price;
+    private Food food;
 
     @Column(name = "quantity")
     private Integer quantity;
