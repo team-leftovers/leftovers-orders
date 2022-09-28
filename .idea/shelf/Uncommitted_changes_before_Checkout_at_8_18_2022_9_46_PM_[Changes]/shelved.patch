@@ -1,0 +1,500 @@
+Index: src/main/java/com/leftovers/order/restaurant/model/restaurant.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leftovers/order/restaurant/model/restaurant.java b/src/main/java/com/leftovers/order/restaurant/model/Restaurant.java
+rename from src/main/java/com/leftovers/order/restaurant/model/restaurant.java
+rename to src/main/java/com/leftovers/order/restaurant/model/Restaurant.java
+--- a/src/main/java/com/leftovers/order/restaurant/model/restaurant.java	
++++ b/src/main/java/com/leftovers/order/restaurant/model/Restaurant.java	
+@@ -1,8 +1,71 @@
+ package com.leftovers.order.restaurant.model;
++
++
++import javax.persistence.*;
++import java.math.BigDecimal;
++import java.sql.Time;
++import java.util.Collection;
++
++import lombok.*;
++
++import javax.persistence.*;
++import javax.persistence.criteria.CriteriaBuilder;
++import java.math.BigDecimal;
++import java.sql.Time;
++import java.util.Collection;
++import java.util.List;
++
++@Entity
++@Getter
++@Setter
++@Builder
++@NoArgsConstructor
++@AllArgsConstructor
++@Table(name = "tbl_restaurant")
++public class Restaurant {
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    @Column(name = "id", nullable = false)
++    private Integer id;
++
++    @Column(name = "name", nullable = false)
++    private String name;
++
++    @ManyToOne(fetch = FetchType.LAZY, optional = false)
++    @JoinColumn(name = "address_id", nullable = false)
++    private Address address;
++
++    @Column(name = "phone_no", length = 15)
++    private String phoneNo;
++
++    @Column(name = "website", nullable = false)
++    private String website;
++
++    @Column(name = "open_time")
++    private Time openTime;
++
++    @Column(name = "close_time")
++    private Time closeTime;
++
++    @Column(name = "rating")
++    @Builder.Default
++    private BigDecimal rating = new BigDecimal("5.0");
++
++    @Column(name = "rating_count")
++    @Builder.Default
++    private Integer ratingCount = 0;
++
++    @OneToMany(mappedBy = "id", fetch = FetchType.EAGER)
++    private List<Food> menuItems;
++}
++
++/*
+ import com.leftovers.order.address.model.address;
+ import com.leftovers.order.product.model.product;
+ //import com.leftovers.order.order.model.order;
+ 
++import lombok.*;
++
+ import javax.persistence.*;
+ import java.util.List;
+ 
+@@ -46,15 +109,16 @@
+     @OneToMany(mappedBy = "restaurantId")
+     public List<product> menu;
+ 
+-    /*
+-    class Geeks {
+-    Geeks() { super(); }
+-    public static void main(String[] args)
+-    {
+-        Geeks geek = new Geeks();
+-    }
+-}
+-     */
++
++    //class Geeks
++    //{
++    //  Geeks() { super(); }
++    //  public static void main(String[] args)
++    //  {
++    //     Geeks geek = new Geeks();
++    //  }
++    //}
++
+ 
+ 
+     public int getId() {
+@@ -143,3 +207,6 @@
+     }
+ 
+ }
++
++
++ */
+\ No newline at end of file
+Index: src/main/java/com/leftovers/order/restaurant/controller/restaurantController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leftovers/order/restaurant/controller/restaurantController.java b/src/main/java/com/leftovers/order/restaurant/controller/RestaurantController.java
+rename from src/main/java/com/leftovers/order/restaurant/controller/restaurantController.java
+rename to src/main/java/com/leftovers/order/restaurant/controller/RestaurantController.java
+--- a/src/main/java/com/leftovers/order/restaurant/controller/restaurantController.java	
++++ b/src/main/java/com/leftovers/order/restaurant/controller/RestaurantController.java	
+@@ -1,6 +1,84 @@
+ package com.leftovers.order.restaurant.controller;
+ 
+ 
++import com.leftovers.order.restaurant.restaurantDTO.CreateRestaurantDTO;
++import com.leftovers.order.restaurant.restaurantDTO.UpdateRestaurantDTO;
++import com.leftovers.order.restaurant.model.Food;
++import com.leftovers.order.restaurant.model.Restaurant;
++import com.leftovers.order.restaurant.service.RestaurantService;
++import lombok.RequiredArgsConstructor;
++import lombok.extern.slf4j.Slf4j;
++import org.springframework.http.MediaType;
++import org.springframework.http.ResponseEntity;
++import org.springframework.web.bind.annotation.*;
++
++import javax.validation.Valid;
++import java.net.URI;
++import java.util.List;
++import java.util.Optional;
++
++@Slf4j
++@RestController
++@RequestMapping(path = "/restaurants")
++@RequiredArgsConstructor
++public class RestaurantController {
++    private static final String MAPPING = "/restaurants";
++    private final RestaurantService service;
++
++
++    @RequestMapping(path = "", method = RequestMethod.POST,
++            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
++    public ResponseEntity<Restaurant> postRestaurant(@Valid @RequestBody CreateRestaurantDTO dto) {
++        log.info("POST Restaurant");
++        var restaurant = service.createNewRestaurant(dto);
++        var uri = URI.create(MAPPING + "/" + restaurant.getId());
++        return ResponseEntity.created(uri).body(restaurant);
++    }
++
++    @RequestMapping(path = "", method = RequestMethod.GET,
++            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
++    public ResponseEntity<List<Restaurant>> getAllRestaurants() {
++        log.info("GET Restaurants");
++        var restaurants = service.getAllRestaurants();
++        if(restaurants.isEmpty())
++            return ResponseEntity.noContent().build();
++        return ResponseEntity.ok(restaurants);
++    }
++
++    @RequestMapping(path = "/{id}", method = RequestMethod.GET,
++            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
++    public ResponseEntity<Restaurant> getRestaurantById(@PathVariable Integer id) {
++        log.info("GET Restaurant " + id);
++        return ResponseEntity.of(Optional.ofNullable(service.getRestaurant(id)));
++    }
++
++    @RequestMapping(path = "/{id}", method = RequestMethod.PUT,
++            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
++    public ResponseEntity<Restaurant> updateRestaurant(@PathVariable Integer id,
++                                                       @Valid @RequestBody UpdateRestaurantDTO dto) {
++        log.info("PUT Restaurant " + id);
++        return ResponseEntity.of(Optional.ofNullable(service.updateRestaurant(id, dto)));
++    }
++
++    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
++    public ResponseEntity<String> deleteRestaurant(@PathVariable Integer id) {
++        log.info("DELETE Restaurant " + id);
++        service.deleteRestaurant(id);
++        return ResponseEntity.noContent().build();
++    }
++
++    @RequestMapping(path = "/{id}/food", method = RequestMethod.GET,
++            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
++    public ResponseEntity<List<Food>> getFoodFromRestaurant(@PathVariable Integer id) {
++        log.info("POST Restaurant " + id + " Food");
++        var food = service.getAllFoodByRestaurant(id);
++        if(food.isEmpty())
++            return ResponseEntity.noContent().build();
++        return ResponseEntity.ok().body(food);
++    }
++}
++
++/*
+ import com.leftovers.order.address.model.address;
+ import com.leftovers.order.address.service.addressService;
+ import com.leftovers.order.restaurant.model.restaurant;
+@@ -59,31 +137,6 @@
+         return "Complete?";
+     }
+ 
+-
+-    /*
+-    @GetMapping(path = "")
+-    public List<restaurant> getAll() {
+-        return restaurantService.getAll();
+-    }
+-    */
+-
+-    /*
+-    @RequestMapping(path = "/add/{name}" , method = RequestMethod.POST)
+-    public String addRestaurant(@RequestParam restaurant newRestaurant) {
+-        System.out.println(newRestaurant.getName());
+-        if (restaurantService.addRestaurant(newRestaurant))
+-        {
+-            return "Item Added Succesfully";
+-        }
+-        return "An Error Occured";
+-    }*/
+-/*
+-    @RequestMapping(path = "/by-id/{id}" , method = RequestMethod.GET)
+-    public Optional<restaurant> getRestaurantById(@PathVariable Integer id) {
+-        return restaurantService.getRestaurantById(id);
+-    }
+-    */
+-
+     @RequestMapping(path = "/by-id/{id}" , method = RequestMethod.GET)
+     public String getRestaurantById(@PathVariable Integer id) {
+         Optional<restaurant> newRestaurant = restaurantService.getRestaurantById(id);
+@@ -93,6 +146,9 @@
+         }
+         return newRestaurant.get().toString();
+     }
++
++
++    */
+ /*
+     @RequestMapping(path = "/{name}" , method = RequestMethod.GET)
+     public List<restaurant> getFoodByName(@PathVariable String name) {
+@@ -109,10 +165,12 @@
+         }
+     }
+ 
+-    end minimalizing commenting/*
++    end minimalizing commenting
++
+ 
+ 
+-    /*      restaurants don't have prices
++
++          restaurants don't have prices
+     @PutMapping(path = "/update-price/{id}")
+     public String updateFoodPricce(@PathVariable Integer id , @RequestParam float price ) {
+         if (restaurantService.updateFoodPrice(id , price)) {
+@@ -122,9 +180,11 @@
+             return "and error occured";
+         }
+     }
+-*/
++
+ 
+-    /*  restaurants don't have descriptions
++
++
++      restaurants don't have descriptions
+     @PutMapping(path = "/update-description/{id}")
+     public String updateFoodDescription(@PathVariable Integer id , @RequestParam String description ) {
+         if (foodService.updateFoodDescription(id , description)) {
+@@ -134,9 +194,11 @@
+             return "and error occured";
+         }
+     }
+-*/
++
+ 
+-    /*  restaurants don't have restaurants
++
++
++      restaurants don't have restaurants
+     @PutMapping(path = "/update-restaurant/{id}")
+     public String updateFoodRestaurant(@PathVariable Integer id , @RequestParam Integer restaurantId ) {
+         if (foodService.updateFoodRestaurant(id , restaurantId)) {
+@@ -146,11 +208,43 @@
+             return "and error occured";
+         }
+     }
+-*/
++
+ 
+-/*
++
++
+     @DeleteMapping(path = "/delete")
+     public String deleteByid(@RequestParam Integer id) {
+         return "del success";
+-    }*/
++    }
++
++
++
++
++    @GetMapping(path = "")
++    public List<restaurant> getAll() {
++        return restaurantService.getAll();
++    }
++
++
++
++
++    @RequestMapping(path = "/add/{name}" , method = RequestMethod.POST)
++    public String addRestaurant(@RequestParam restaurant newRestaurant) {
++        System.out.println(newRestaurant.getName());
++        if (restaurantService.addRestaurant(newRestaurant))
++        {
++            return "Item Added Succesfully";
++        }
++        return "An Error Occured";
++    }
++
++
++    @RequestMapping(path = "/by-id/{id}" , method = RequestMethod.GET)
++    public Optional<restaurant> getRestaurantById(@PathVariable Integer id) {
++        return restaurantService.getRestaurantById(id);
++    }
++    */
++/*
++
+ }
++*/
+Index: src/main/java/com/leftovers/order/restaurant/service/restaurantService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leftovers/order/restaurant/service/restaurantService.java b/src/main/java/com/leftovers/order/restaurant/service/RestaurantService.java
+rename from src/main/java/com/leftovers/order/restaurant/service/restaurantService.java
+rename to src/main/java/com/leftovers/order/restaurant/service/RestaurantService.java
+--- a/src/main/java/com/leftovers/order/restaurant/service/restaurantService.java	
++++ b/src/main/java/com/leftovers/order/restaurant/service/RestaurantService.java	
+@@ -1,15 +1,34 @@
+ package com.leftovers.order.restaurant.service;
+ 
+-
+-
+-import com.leftovers.order.restaurant.dao.restaurantDAO;
+-import com.leftovers.order.restaurant.model.restaurant;
+-import org.springframework.beans.factory.annotation.Autowired;
+-import org.springframework.stereotype.Component;
+-
++import com.leftovers.order.restaurant.restaurantDTO.CreateFoodDTO;
++import com.leftovers.order.restaurant.restaurantDTO.UpdateFoodDTO;
++import com.leftovers.order.restaurant.model.Food;
++import com.leftovers.order.restaurant.restaurantDTO.CreateRestaurantDTO;
++import com.leftovers.order.restaurant.restaurantDTO.UpdateRestaurantDTO;
++import com.leftovers.order.restaurant.exception.NoSuchFoodException;
++import com.leftovers.order.restaurant.exception.NoSuchRestaurantException;
++import com.leftovers.order.restaurant.model.Address;
++import com.leftovers.order.restaurant.model.Food;
++import com.leftovers.order.restaurant.model.Restaurant;
++import com.leftovers.order.restaurant.repository.AddressRepository;
++import com.leftovers.order.restaurant.repository.FoodRepository;
++import com.leftovers.order.restaurant.repository.RestaurantRepository;
+ import java.util.List;
+-import java.util.Optional;
++
++public interface RestaurantService {
++    Restaurant createNewRestaurant(CreateRestaurantDTO dto);
++    List<Restaurant> getAllRestaurants();
++    Restaurant getRestaurant(Integer id);
++    Restaurant updateRestaurant(Integer id, UpdateRestaurantDTO dto);
++    void deleteRestaurant(Integer id);
++    List<Food> getAllFoodByRestaurant(Integer id);
++}
+ 
++
++
++
++
++/*
+ @Component
+ public class restaurantService {
+ 
+@@ -34,17 +53,7 @@
+             throw e;
+         }
+     }
+-/*
+-    public List<restaurant> getRestaurantByName(String name) {
+-        try {
+-            return servDAO.getRestaurantByName(name);
+-        }
+-        catch (Exception e) {
+-            throw e;
+-            throw e;
+-        }
+-    }
+-*/
++
+     public List<restaurant> getAll() {
+         return servDAO.getAll();
+     }
+@@ -61,7 +70,7 @@
+             return false;
+         }
+     }
+-
++    */
+     /*      restaurants don't have prices
+     public boolean updateRestaurantPrice(Integer id, float price) {
+         Optional<restaurant> restaurantFromDb = foodDao.getFoodById(id);
+@@ -75,9 +84,9 @@
+             return false;
+         }
+     }
+-    */
+ 
+-    /*  restaurants don't have descriptions
++
++    restaurants don't have descriptions
+     public boolean updateFoodDescription(Integer id, String description) {
+         Optional<Food> foodFromDb = foodDao.getFoodById(id);
+         Food foodObject = foodFromDb.get();
+@@ -90,9 +99,10 @@
+             return false;
+         }
+     }
+-     */
++
+ 
+-    /*  restaurants don't have restaurants
++
++    restaurants don't have restaurants
+     public boolean updateFoodRestaurant(Integer id, Integer restaurantId) {
+         Optional<Food> foodFromDb = foodDao.getFoodById(id);
+         Food foodObject = foodFromDb.get();
+@@ -105,6 +115,14 @@
+             return false;
+         }
+     }
+-    */
++    public List<restaurant> getRestaurantByName(String name) {
++        try {
++            return servDAO.getRestaurantByName(name);
++        }
++        catch (Exception e) {
++            throw e;
++            throw e;
++        }
++    }
+ 
+-}
+\ No newline at end of file
++}*/
+\ No newline at end of file
+Index: src/main/java/com/leftovers/order/restaurant/repository/restaurantRepository.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/leftovers/order/restaurant/repository/restaurantRepository.java b/src/main/java/com/leftovers/order/restaurant/repository/RestaurantRepository.java
+rename from src/main/java/com/leftovers/order/restaurant/repository/restaurantRepository.java
+rename to src/main/java/com/leftovers/order/restaurant/repository/RestaurantRepository.java
+--- a/src/main/java/com/leftovers/order/restaurant/repository/restaurantRepository.java	
++++ b/src/main/java/com/leftovers/order/restaurant/repository/RestaurantRepository.java	
+@@ -1,9 +1,17 @@
+ package com.leftovers.order.restaurant.repository;
+ 
+-import com.leftovers.order.restaurant.model.restaurant;
++import com.leftovers.order.restaurant.model.Restaurant;
+ import org.springframework.data.repository.CrudRepository;
++import java.util.*;
++
+ 
++public interface RestaurantRepository extends CrudRepository<Restaurant, Integer> {
++        //Restaurant findById(long id);
++        Optional<Restaurant> findRestaurantById(Integer id);
++        Optional<Restaurant> findTopByOrderByIdDesc();
++        List<Restaurant> findRestaurantByNameContainingIgnoreCase(String str);
++        List<Restaurant> findAll();
++        boolean deleteRestaurantById(Integer id);
+ 
+-public interface restaurantRepository extends CrudRepository<restaurant, Integer> {
+-        restaurant findById(long id);
++
+ }
+\ No newline at end of file
